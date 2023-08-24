@@ -1,0 +1,1 @@
+#declarar las tablas en la base de datos
