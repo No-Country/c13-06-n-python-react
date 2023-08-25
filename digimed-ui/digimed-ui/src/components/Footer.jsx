@@ -9,15 +9,13 @@ import "../styles/Footer.css";
 function Footer() {
   return (
     <div className="footer">
-      <div className="socialMedia">
       <p> &copy; todos los derechos reservados @digimed.com | Terminos y condiciones</p>
+      <div className="socialMedia" >
       <Link to="https://www.instagram.com/" target={"_blank"}rel=' noopener noreferrer'><InstagramIcon /> </Link>
       <Link to="https://twitter.com/" target={"_blank"}rel=' noopener noreferrer'><TwitterIcon /></Link> 
       <Link to="https://www.facebook.com/" target={"_blank"}rel=' noopener noreferrer'><FacebookIcon /></Link>
       <Link to="https://web.whatsapp.com/" target={"_blank"}rel=' noopener noreferrer'><WhatsAppIcon /></Link>
-
       </div>
-      
     </div>
   );
 }

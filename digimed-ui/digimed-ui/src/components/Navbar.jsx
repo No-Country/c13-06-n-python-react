@@ -1,27 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../assets/Logo1.png";
 import { Link } from "react-router-dom";
 import ReorderIcon from '@mui/icons-material/Reorder';
-
+import "../styles/Navbar.css";
 
 function Navbar() {
-  
+  const [openLinks, setOpenLinks] = useState(false);
+
+  const toggleNavbar = () => {
+    setOpenLinks(!openLinks);
+  };
   return (
-      
-    <div >
-      <div style={{background:'#e6f2ff', textAlign:'right', marginRight:'1rem', 
-      marginLeft:'1rem', marginBottom:'1rem', marginTop:'1rem', flexDirection:'row'}} >
-      <img src={Logo} style={{position:'relative', height:'8rem' }}/>
-        <Link style={{marginRight:'2rem'}} to="/"> Home </Link>
-        <Link style={{marginRight:'2rem'}} to="/Servicios"> Servicios </Link>
-        <Link style={{marginRight:'2rem'}} to="/About"> Quienes somos </Link>
-        <Link style={{marginRight:'2rem'}}to="/contacto"> Contacto </Link>
-        <button>
+    <div className="navbar">
+      <div className="leftSide" id={openLinks ? "open" : "close"}>
+        <img src={Logo} />
+        <div className="hiddenLinks">
+          <Link to="/"> Home </Link>
+          <Link to="/servicio"> Servicio </Link>
+          <Link to="/about"> Quienes somos </Link>
+          <Link to="/contact"> Contacto </Link>
+        </div>
+      </div>
+      <div className="rightSide">
+        <Link to="/"> Home </Link>
+        <Link to="/servicio"> servicio </Link>
+        <Link to="/about"> Quienes somos </Link>
+        <Link to="/contact"> Contacto </Link>
+        <button onClick={toggleNavbar}>
           <ReorderIcon />
         </button>
       </div>
     </div>
-    
   );
 }
 
