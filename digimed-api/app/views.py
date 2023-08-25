@@ -1,10 +1,11 @@
-from flask import Blueprint
-
+from flask import Blueprint, request
+from flask_sqlalchemy import SQLAlchemy
+db = SQLAlchemy()
 api_v1 = Blueprint('api', __name__, url_prefix='/api/v1')
 
 @api_v1.route('/users', methods={'GET'})
 def get_users():
-    pass
+    return db
 
 @api_v1.route('/users/<id>', methods={'GET'})
 def get_user(id):
