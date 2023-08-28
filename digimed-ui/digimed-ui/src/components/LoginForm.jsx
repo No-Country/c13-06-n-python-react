@@ -1,4 +1,6 @@
 export function LoginForm() {
+
+    
     return (<div className="flex flex-col gap-4">
         <p className="font-bold text-azul-oscuro text-3xl">Le damos la bienvenida</p>
         <p>Si ya tiene cuenta</p>
@@ -7,7 +9,7 @@ export function LoginForm() {
             <input type="text" placeholder="Contraseña"/>
             <button>ingresar</button>
         </form>
-        <p>No tiene cuenta? <a href="#">Registrese</a></p>
+        <p>No tiene cuenta?</p>
+        <button onClick={()=>{registrarUser()}}>Registrese</button>
     </div>  );
 }
-
