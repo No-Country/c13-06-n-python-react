@@ -33,4 +33,3 @@ export function LoginForm() {
         {/* <p>No tiene cuenta? <a href="#">Registrese</a></p> */}
     </div>  );
 }
-

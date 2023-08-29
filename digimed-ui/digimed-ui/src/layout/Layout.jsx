@@ -1,3 +1,4 @@
+import Solicitudes from "../Pages/Solicitudes";
 import Footer from "../components/Footer";
 import { Footer2 } from "../components/Footer2";
 import Navbar from "../components/Navbar";
