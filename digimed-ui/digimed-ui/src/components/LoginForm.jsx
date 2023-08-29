@@ -10,6 +10,6 @@ export function LoginForm() {
             <button>ingresar</button>
         </form>
         <p>No tiene cuenta?</p>
-        <button onClick={()=>{registrarUser()}}>Registrese</button>
+        <button >Registrese</button>
     </div>  );
 }
