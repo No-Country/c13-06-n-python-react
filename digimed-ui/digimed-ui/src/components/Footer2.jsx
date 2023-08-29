@@ -7,7 +7,7 @@ import { Youtube } from "./Youtube";
 export function Footer2() {
     return ( <div className="">
         <div className="h-[0.125rem] bg-azul-oscuro"></div>
-        <div className="flex justify-between mt-8 items-center">
+        <div className="flex justify-between mt-[1.5rem] items-center">
         <p className="">Todos los derechos reservados @ Digimed.com | Terminos y condiciones</p>
         <div className="flex gap-5 ">      
         <Facebook />
