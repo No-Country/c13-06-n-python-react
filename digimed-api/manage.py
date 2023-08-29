@@ -7,5 +7,7 @@ environment = config['development']
 app = create_app(environment)
 
 if __name__=='__main__':
+    print('Running app...')
+
     Base.metadata.create_all(db.engine)
     app.run()
