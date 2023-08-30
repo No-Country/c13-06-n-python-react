@@ -50,6 +50,12 @@ def login():
     
     if message is None:
         message = 'inicio correcto'
-        return f'{message}'
+        return jsonify({
+        'messages': message
+
+        })
     else:
-        return f'{message}'
+        return jsonify({
+        'messages': message
+
+        })
