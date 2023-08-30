@@ -26,9 +26,9 @@ class Patient(Base):
 
     id = Column(Integer(), primary_key=True)
     name = Column(String(70), nullable=True)
-    last_name = Column(String(100), nullable=False, unique=True)
+    last_name = Column(String(100), nullable=False)
     dni = Column(String(250), nullable=False)
-    member = Column(String(100), nullable=False, unique=True)
+    member = Column(String(100), nullable=False)
     user_id = Column(Integer(), ForeignKey('users.id')) 
 
     def __str__(self):

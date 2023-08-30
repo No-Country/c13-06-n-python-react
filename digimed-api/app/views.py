@@ -16,7 +16,8 @@ def create_patient():
     email = request.json['email']
     password = request.json['password']
     
-    user = session.query(User).filter(email==email).first()
+    user = session.query(User).filter_by(email=str(email)).first()
+    print(user)
     if user is None:
         new_user = User(username=username, email=email, password=generate_password_hash(password))
         session.add(new_user)
@@ -31,6 +32,7 @@ def create_patient():
 
     return jsonify({
         'messages': message
+
         })
 
 @api_v1.route('/login', methods={'POST'})
