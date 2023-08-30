@@ -1,60 +1,114 @@
-import React from "react";
+import React, { useState } from 'react';
 
 function RegistroForm() {
-    const [formData, setFormData] = useState({
-        fullName: '',
-        identificationType: '',
-        identificationNumber: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-      });
+  const [formData, setFormData] = useState({
+    fullName: '',
+    documentType: '',
+    documentNumber: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevData) => ({
-          ...prevData,
-          [name]: value,
-        }));
-      };
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (formData.password !== formData.confirmPassword) {
-          alert("Las contraseñas no coinciden.");
-          return;
-        }
+  const handleRegistration = () => {
+    if (
+      formData.fullName &&
+      formData.documentType &&
+      formData.documentNumber &&
+      formData.email &&
+      formData.password &&
+      formData.confirmPassword
+    ) {
+      if (formData.password === formData.confirmPassword) {
+       
+        alert('Usuario registrado exitosamente.');
+      } else {
+        alert('Las contraseñas no coinciden.');
+      }
+    } else {
+      alert('Por favor, completa todos los campos.');
     }
+  };
+
   return (
-    <div>
-    <h1>Registro de Usuario</h1>
-    <form onSubmit={handleSubmit}>
-      <label>
-        Nombre completo:
-        <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} />
-      </label>
-      <label>
-        Tipo de identificación:
-        <input type="text" name="identificationType" value={formData.identificationType} onChange={handleChange} />
-      </label>
-      <label>
-        Número de identificación:
-        <input type="text" name="identificationNumber" value={formData.identificationNumber} onChange={handleChange} />
-      </label>
-      <label>
-        Correo:
-        <input type="email" name="email" value={formData.email} onChange={handleChange} />
-      </label>
-      <label>
-        Contraseña:
-        <input type="password" name="password" value={formData.password} onChange={handleChange} />
-      </label>
-      <label>
-        Confirmar contraseña:
-        <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
-      </label>
-      <button type="submit">Registrarse</button>
-    </form>
+    <div className="flex justify-center items-center h-screen">
+      <div className="flex flex-col md:flex-row md:space-x-6">
+      <p className="font-bold text-azul-oscuro text-3xl mb-8">Registro</p>
+        <p className="text-2xl mb-16">Por favor, complete el formulario</p>
+        <form action="" className="flex flex-col gap-6">
+        <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center ">
+        <input
+          className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
+          placeholder="Nombre y Apellido"
+          type="text"
+          name="fullName"
+          value={formData.fullName}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[12rem] flex items-center ">
+        <input
+          className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
+          placeholder="Tipo de ID"
+          type="text"
+          name="documentType"
+          value={formData.documentType}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[12rem] flex items-center ">
+        <input
+          className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
+          placeholder="Numero de ID"
+          type="number"
+          name="documentNumber"
+          value={formData.documentNumber}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center ">
+        <input
+          className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
+          placeholder="Email"
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center ">
+        <input
+          className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
+          placeholder="Contraseña"
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleInputChange}
+        />
+        </div>
+        <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center ">
+        <input
+          className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
+          placeholder="Repetir Contraseña"
+          type="password"
+          name="confirmPassword"
+          value={formData.confirmPassword}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className=" mx-1 border border-zinc-500 px-3 py-4 bg-celeste text-white gap-2 rounded-lg w-[25rem] flex items-center  justify-center">
+      <button onClick={handleRegistration}>Confirmar Registro</button>
+      </div>
+      </form>
+      </div>
     </div>
   );
 }

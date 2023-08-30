@@ -1,5 +1,6 @@
 import { LoginForm } from "../components/LoginForm";
 import hero from '../assets/image_hero.png'
+import Solicitudes from "./Solicitudes";
 
 export function Login() {
     return (  <div className="flex ">
