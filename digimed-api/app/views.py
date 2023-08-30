@@ -16,13 +16,13 @@ def create_patient():
     email = request.json['email']
     password = request.json['password']
     
-    user = session.query(User).filter_by(email=str(email)).first()
-    print(user)
+    user = session.query(User).filter(User.email == email).first()
+    
     if user is None:
         new_user = User(username=username, email=email, password=generate_password_hash(password))
         session.add(new_user)
         session.commit()
-        user = session.query(User).filter(email==email).first()
+        user = session.query(User).filter(User.email==email).first()
         new_patient = Patient(name=name, last_name=last_name, dni=dni, member=member, user_id=user.id)
         session.add(new_patient)
         session.commit()
