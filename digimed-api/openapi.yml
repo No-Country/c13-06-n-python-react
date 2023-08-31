@@ -9,6 +9,11 @@ paths:
     get:
       summary: getPacientsById
       parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer ***
         - name: id
           in: path
           schema:
@@ -24,6 +29,12 @@ paths:
   /patients:
     get:
       summary: getPacients
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer ***
       responses:
         '200':
           description: Successful response
