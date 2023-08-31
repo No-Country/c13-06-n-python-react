@@ -1,7 +1,10 @@
-import Footer from "../components/Footer";
+// import Footer from "../components/Footer";
 import { Footer2 } from "../components/Footer2";
-import Navbar from "../components/Navbar";
+// import Navbar from "../components/Navbar";
 import { Navbar2 } from "../components/Navbar2";
+import RegistroForm from "../components/RegistroForm";
+// import Solicitudes from "../Pages/Solicitudes";
+import Registro from "../Pages/Registro";
 
 export function Layout({ children }) {
   return (

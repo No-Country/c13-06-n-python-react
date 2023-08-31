@@ -1,6 +1,7 @@
 import { LoginForm } from "../components/LoginForm";
 import hero from '../assets/image_hero.png'
 
+
 export function Login() {
     return (  <div className="flex ">
         <div className=" text-azul-oscuro">
