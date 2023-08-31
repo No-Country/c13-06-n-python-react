@@ -16,17 +16,23 @@ def create_patient():
     email = request.json['email']
     password = request.json['password']
     
-    new_user = User(username=username, email=email, password=generate_password_hash(password))
-    session.add(new_user)
-    session.commit()
-    user = session.query(User).filter(email=email).first
-    new_patient = Patient(name=name, last_name=last_name, dni=dni, member=member, user_id=user.id)
-    session.add(new_patient)
-    session.commit()
+    user = session.query(User).filter(User.email == email).first()
+    
+    if user is None:
+        new_user = User(username=username, email=email, password=generate_password_hash(password))
+        session.add(new_user)
+        session.commit()
+        user = session.query(User).filter(User.email==email).first()
+        new_patient = Patient(name=name, last_name=last_name, dni=dni, member=member, user_id=user.id)
+        session.add(new_patient)
+        session.commit()
+        message = 'Paciente creado correctamente'
+    else:
+        message = 'Ese mail ya esta registrado'
 
     return jsonify({
-        'messages': 'Paciente creado correctamente'
-        })
+        'messages': message
+    })
 
 @api_v1.route('/login', methods={'POST'})
 def login():
@@ -42,62 +48,35 @@ def login():
         message = 'La contraseña es incorrecta'
     
     if message is None:
-        return f'inicio correcto'
-    else:
-        return f'{message}'
-
-@api_v1.route('/users', methods={'GET'})
-def get_users():
-    all_users = session.query(User).all()
-    print(all_users)
-    return jsonify({'usuarios':all_users[0]})
-
-@api_v1.route('/users/<id>', methods={'GET'})
-def get_user(id):
-    print('entro')
-    user = session.query(User).get(id)
-    return jsonify({
-        'id':user.id,
-        'username':user.username,
-        'email':user.email,
-        'password':user.password,
-    })
-
-@api_v1.route('/users', methods={'POST'})
-def create_user():
-    
-    email = request.json['email']
-    password = request.json['password']
-    
-    new_user = User(email=email, password=password)
-
-    session.add(new_user)
-    session.commit()
-
-    return jsonify({
-        'id':new_user.id,
-        'email':new_user.email,
-        'password':new_user.password,
-        'username':new_user.username
+        message = 'inicio correcto'
+        return jsonify({
+            'messages': message
         })
+    else:
+        return jsonify({
+            'messages': message
+        })
+    
+#get all patients
+@api_v1.route('/patients', methods={'GET'})
+def get_patients():
+    patients = session.query(Patient).all()
+    #convert patients to json array
+    patients_json = []
+    for patient in patients:
+        patient_data = patient.__dict__
+        del patient_data['_sa_instance_state']
+        patients_json.append(patient_data)
+    #return patients as json
+    return jsonify(patients_json)
 
-@api_v1.route('/users/<id>', methods={'PUT'})
-def update_user(id):
-    user = User.query.get(id)
-
-    email = request.json['email']
-    password = request.json['password']
-
-    user.email = email
-    user.password = password
-
-    db.session.commit()
-
-    return user_schema.jsonify(user)
-
-@api_v1.route('/users/<id>', methods={'DELETE'})
-def delet_user(id):
-    user = User.query.get(id)
-    db.session.delete(user)
-    db.session.commit()
-    return user_schema.jsonify(user)
+#get patient by id
+@api_v1.route('/patients/<int:id>', methods={'GET'})
+def get_patient_by_id(id):
+    patient = session.query(Patient).filter(Patient.id == id).first()
+    #convert patient to json
+    patient_json = patient.__dict__
+    del patient_json['_sa_instance_state']
+    #return patient as json
+    return jsonify(patient_json)
+        
