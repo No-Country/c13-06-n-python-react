@@ -1,15 +1,135 @@
-import React from "react";
-import RegistroForm from "../components/RegistroForm";
+import React, { useState } from 'react';
 import hero from '../assets/image_hero.png';
+import Image from '../components/image';
 
-function Registro() {
+function Registro({setShowLoginForm, setShowRegistro, email, contraseña, handleemail, handlecontraseña}) {
   
+  const [fullName, setFullName] = useState('')
+  const [documentType, setDocumentType] = useState('')
+  const [documentNumber, setDocumentNumber] = useState('')
+  const [confirmContraseña, setConfirmContraseña] = useState('')
+
+
+  const goBack = ()=>{
+    setShowLoginForm(true)
+    setShowRegistro(false)
+}
+/* console.log(email, contraseña) */
+
+const handlefullName = (e)=>{
+  setFullName(e.target.value)
+}
+
+const handledocumentType =(e)=>{
+  setDocumentType(e.target.value)
+}
+
+const handledocumentNumber =(e)=>{
+  setDocumentNumber(e.target.value)
+}
+
+const handleconfirmContraseña =(e)=>{
+  setConfirmContraseña(e.target.value)
+}
+
+  const handleRegistration = (e) => {
+    e.preventDefault
+    if (email === "" || contraseña ==='' || fullName ==='' ||
+    documentType ==='' || confirmContraseña ==='' || documentNumber ===''){
+      alert('Por favor, completa todos los campos.');
+    }
+    else if (contraseña !== confirmContraseña){
+      alert('Las contraseñas no coinciden.');
+    }
+
+      else {
+        axios.post('http://localhost:3001/login/newUser',{
+          email: email,
+          contraseña: contraseña,
+
+      }).then((resp)=>{
+          alert('Usuario registrado con exito')
+      }).catch((error)=>{
+          console.log('error')
+      })
+    }
+  };
   return (
     <div className="flex ">
     <div className=" text-azul-oscuro">
-    <img src={hero} alt="" className="h-[36rem] w-[40.5rem] mb-[5.25rem] -ml-[5rem] object-cover"/>
+      <Image/>
     <p className="font-bold text-2xl  mb-[2.8rem]">Aprovechamos la tecnología para hacer la vida más fácil.</p>
-    <RegistroForm />
+    <div className="flex justify-center items-center h-screen">
+      <div className="flex flex-col md:flex-row md:space-x-6">
+      <p className="font-bold text-azul-oscuro text-3xl mb-8">Registro</p>
+        <p className="text-2xl mb-16">Por favor, complete el formulario</p>
+        <form action="" className="flex flex-col gap-6">
+        <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center ">
+        <input
+          className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
+          placeholder="Nombre y Apellido"
+          type="text"
+          name="fullName"
+          value={fullName}
+          onChange={handlefullName}
+        />
+      </div>
+      <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[12rem] flex items-center ">
+        <input
+          className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
+          placeholder="Tipo de ID"
+          type="text"
+          name="documentType"
+          value={documentType}
+          onChange={handledocumentType}
+        />
+      </div>
+      <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[12rem] flex items-center ">
+        <input
+          className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
+          placeholder="Numero de ID"
+          type="number"
+          name="documentNumber"
+          value={documentNumber}
+          onChange={handledocumentNumber}
+        />
+      </div>
+      <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center ">
+        <input
+          className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
+          placeholder="Email"
+          type="email"
+          name="email"
+          value={email}
+          onChange={handleemail}
+        />
+      </div>
+      <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center ">
+        <input
+          className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
+          placeholder="Contraseña"
+          type="password"
+          name="contraseña"
+          value={contraseña}
+          onChange={handlecontraseña}
+        />
+        </div>
+        <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center ">
+        <input
+          className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
+          placeholder="Repetir Contraseña"
+          type="password"
+          name="confirmContraseña"
+          value={confirmContraseña}
+          onChange={handleconfirmContraseña}
+        />
+      </div>
+      <div className=" mx-1 border border-zinc-500 px-3 py-4 bg-celeste text-white gap-2 rounded-lg w-[25rem] flex items-center  justify-center">
+      <button onClick={(e)=>{handleRegistration(e)}}>Confirmar Registro</button>
+      </div>
+      </form>
+      </div>
+    </div>
   </div>
   </div>
   );
