@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from .models import User, Patient
 from .db import session
 from werkzeug.security import check_password_hash, generate_password_hash
+from flask_jwt_extended import create_access_token, jwt_required
 
 api_v1 = Blueprint('api', __name__, url_prefix='/api/v1')
 
@@ -49,13 +50,26 @@ def login():
         message = 'La contraseña es incorrecta'
     
     if message is None:
+        access_token = create_access_token(identity=user.id)
         message = 'inicio correcto'
         return jsonify({
+        'access_token':access_token,
+        'user.id':user.id,
         'messages': message
 
-        })
+        }),200
     else:
         return jsonify({
         'messages': message
 
+        })
+@api_v1.route('/user/<id>', methods={'GET'})
+@jwt_required()
+def get_user(id):
+    user = session.query(User).filter(User.id==id).first()
+    print(user)
+    return jsonify({
+            'id':user.id,
+            'username':user.username,
+            'email':user.email
         })
