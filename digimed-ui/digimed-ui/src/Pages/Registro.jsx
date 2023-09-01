@@ -47,14 +47,21 @@ function Registro({
       confirmContraseña === '' ||
       documentNumber === ''
     ) {
+      console.log('Entro if')
       alert('Por favor, completa todos los campos.');
     } else if (contraseña !== confirmContraseña) {
+      console.log('Entro Else if')
       alert('Las contraseñas no coinciden.');
     } else {
+      console.log('entro else')
       axios
-        .post('http://localhost:3001/login/newUser', {
+        .post('http://localhost:5000/api/v1/register', {
+          fullName: fullName,
+          documentType: documentType,
+          documentNumber: documentNumber,
           email: email,
           contraseña: contraseña,
+          confirmContraseña: confirmContraseña        
         })
         .then((resp) => {
           alert('Usuario registrado con exito');
@@ -146,7 +153,14 @@ function Registro({
                 >
                   Confirmar Registro
                 </button>
-              </div>
+                   </div>
+                 <button
+                   onClick={() => {
+                    goBack();
+                  }}
+            >
+              Volver al login
+            </button>
             </form>
           </div>
         </div>
