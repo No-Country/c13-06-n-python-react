@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+// import Alert from '@mui/material/Alert';
 import { Link } from 'react-router-dom';
 // import hero from '../assets/image_hero.png';
 import Image from '../components/image';
@@ -49,8 +50,18 @@ function Registro({
       documentNumber === ''
     ) {
       console.log('Entro if')
+      
       alert('Por favor, completa todos los campos.');
-    } else if (contraseña !== confirmContraseña) {
+    } else if 
+    
+    (email &&
+    contraseña  && 
+    fullName &&
+    documentType &&
+    confirmContraseña &&
+    documentNumber &&
+
+      contraseña !== confirmContraseña) {
       console.log('Entro Else if')
       alert('Las contraseñas no coinciden.');
     } else {
@@ -62,7 +73,7 @@ function Registro({
           documentNumber: documentNumber,
           email: email,
           contraseña: contraseña,
-          confirmContraseña: confirmContraseña        
+          confirmContraseña: confirmContraseña, 
         })
         .then((resp) => {
           alert('Usuario registrado con exito');

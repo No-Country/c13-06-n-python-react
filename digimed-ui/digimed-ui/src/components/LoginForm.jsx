@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
 export function LoginForm() {
+  // const [isAllowed, setIsAllowed] = useState(false)
   const [email, setEmail] = useState('');
   const [contraseña, setContraseña] = useState('');
   const [showAlert, setShowAlert] = useState(false);
@@ -40,7 +41,9 @@ export function LoginForm() {
     if (email === '' || contraseña === '') {
       setShowAlert(true);
       timeOutAlert();
+      console.log('Completa los campos')
     } else {
+      console.log('usuario logeado')
       axios
         .post('http://localhost:5000/api/v1/login', {
           email: email,
@@ -48,7 +51,7 @@ export function LoginForm() {
         })
         .then((resp) => {
           setIsAllowed(true);
-          navigate('/Home');
+          navigate('/servicios');
         })
         .catch((error) => {
           setShowAlertEmail(true);
