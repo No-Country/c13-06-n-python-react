@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import hero from '../assets/image_hero.png';
+import { Link } from 'react-router-dom';
+// import hero from '../assets/image_hero.png';
 import Image from '../components/image';
 
 function Registro({
@@ -154,13 +155,7 @@ function Registro({
                   Confirmar Registro
                 </button>
                    </div>
-                 <button
-                   onClick={() => {
-                    goBack();
-                  }}
-            >
-              Volver al login
-            </button>
+                 <Link to='/'>Volver al Login</Link>
             </form>
           </div>
         </div>

@@ -1,7 +1,7 @@
 // import Alert from '@mui/material/Alert';
 import Registro from '../Pages/Registro';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export function LoginForm() {
   const [email, setEmail] = useState('');
@@ -21,10 +21,10 @@ export function LoginForm() {
 
   /* console.log(email, password) */
 
-  const registrarUser = () => {
-    setShowRegistro(true);
-    setShowLoginForm(false);
-  };
+  // const registrarUser = () => {
+  //   setShowRegistro(true);
+  //   setShowLoginForm(false);
+  // };
   const timeOutAlert = () => {
     setTimeout(() => {
       setShowAlert(false);
@@ -42,7 +42,7 @@ export function LoginForm() {
       timeOutAlert();
     } else {
       axios
-        .post('http://localhost:3001/login', {
+        .post('http://localhost:5000/api/v1/login', {
           email: email,
           password: password,
         })
@@ -106,13 +106,7 @@ export function LoginForm() {
                 Ingresar
               </button>
             </div>
-            <button
-              onClick={() => {
-                registrarUser();
-              }}
-            >
-              Registrar Usuario
-            </button>
+            <Link to='/Registro'>Registar Usuario</Link>
           </form>
         </div>
       ) : (
