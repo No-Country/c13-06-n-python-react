@@ -3,11 +3,14 @@ import Registro from '../Pages/Registro';
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+// import { useHistory } from 'react-router-dom';
 
 export function LoginForm() {
+  // const history = useHistory();
+  const navigate = useNavigate();
   // const [isAllowed, setIsAllowed] = useState(false)
   const [email, setEmail] = useState('');
-  const [contraseña, setContraseña] = useState('');
+  const [password, setPassword] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [ShowAlertEmail, setShowAlertEmail] = useState(false);
   const [showRegistro, setShowRegistro] = useState(false);
@@ -17,8 +20,8 @@ export function LoginForm() {
     setEmail(e.target.value);
   };
 
-  const handlecontraseña = (e) => {
-    setContraseña(e.target.value);
+  const handlepassword = (e) => {
+    setPassword(e.target.value);
   };
 
   /* console.log(email, password) */
@@ -39,7 +42,7 @@ export function LoginForm() {
     }, 2000);
   };
   const enter = () => {
-    if (email === '' || contraseña === '') {
+    if (email === '' || password === '') {
       setShowAlert(true);
       timeOutAlert();
       console.log('Completa los campos')
@@ -50,8 +53,10 @@ export function LoginForm() {
           password: password,
         })
         .then((resp) => {
-          setIsAllowed(true);
+          // setIsAllowed(true);
           navigate('/servicios');
+          // history.push('/servicios');
+          // window.location.href = '/servicios'
         })
         .catch((error) => {
           setShowAlertEmail(true);
@@ -59,7 +64,7 @@ export function LoginForm() {
         });
     }
   };
-  const navigate = useNavigate();
+ 
 
   return (
     <div className='flex flex-col '>
@@ -75,7 +80,7 @@ export function LoginForm() {
           <p className='text-2xl mb-16'>Si ya tiene cuenta</p>
           <form action='' className='flex flex-col gap-6'>
             {/* <input type="text" placeholder="Email"/>
-            <input type="text" placeholder="Contraseña"/> */}
+            <input type="text" placeholder="Password"/> */}
             <div className=' mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center '>
               {/* <Search className="mx-1h-5 w-5 text-zinc-500" /> */}
               <input
@@ -89,12 +94,12 @@ export function LoginForm() {
             </div>
             <div className='  mx-1 border-2  px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center'>
               <input
-                onChange={handlecontraseña}
+                onChange={handlepassword}
                 type='password'
                 name='password'
-                value={contraseña}
+                value={password}
                 className='flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent'
-                placeholder='Contraseña'
+                placeholder='password'
               />
             </div>
 
@@ -109,7 +114,7 @@ export function LoginForm() {
                 Ingresar
               </button>
             </div>
-            <Link to='/Registro'>Registar Usuario</Link>
+            <div className='text-2xl mb-16 flex flex-row gap-1'>¿No tiene cuenta? <Link className='text-celeste underline' to='/Registro'> Registrese</Link></div>
           </form>
         </div>
       ) : (
@@ -117,9 +122,9 @@ export function LoginForm() {
           setShowLoginForm={setShowLoginForm}
           setShowRegistro={setShowRegistro}
           email={email}
-          contraseña={contraseña}
+          password={password}
           handleemail={handleemail}
-          handlecontraseña={handlecontraseña}
+          handlepassword={handlepassword}
         />
       )}
 

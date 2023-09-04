@@ -4,25 +4,28 @@ import { Link } from 'react-router-dom';
 // import hero from '../assets/image_hero.png';
 import Image from '../components/image';
 import axios from 'axios';
+// import { useHistory } from 'react-router-dom';
 
 function Registro({
-  setShowLoginForm,
-  setShowRegistro,
+  // setShowLoginForm,
+  // setShowRegistro,
   email,
-  contraseña,
+  password,
   handleemail,
-  handlecontraseña,
+  handlepassword,
 }) {
+  // const history = useHistory();
+
   const [fullName, setFullName] = useState('');
   const [documentType, setDocumentType] = useState('');
   const [documentNumber, setDocumentNumber] = useState('');
-  const [confirmContraseña, setConfirmContraseña] = useState('');
+  const [confirmPassword, setconfirmPassword] = useState('');
 
-  const goBack = () => {
-    setShowLoginForm(true);
-    setShowRegistro(false);
-  };
-  /* console.log(email, contraseña) */
+  // const goBack = () => {
+  //   setShowLoginForm(true);
+  //   setShowRegistro(false);
+  // };
+  /* console.log(email, password) */
 
   const handlefullName = (e) => {
     setFullName(e.target.value);
@@ -36,31 +39,31 @@ function Registro({
     setDocumentNumber(e.target.value);
   };
 
-  const handleconfirmContraseña = (e) => {
-    setConfirmContraseña(e.target.value);
+  const handleconfirmPassword = (e) => {
+    setconfirmPassword(e.target.value);
   };
 
   const handleRegistration = (e) => {
     e.preventDefault();
     if (
       email === '' ||
-      contraseña === '' ||
+      password === '' ||
       fullName === '' ||
       documentType === '' ||
-      confirmContraseña === '' ||
+      confirmPassword === '' ||
       documentNumber === ''
     ) {     
       console.log('Por favor, completa todos los campos.');
     } else if 
     
     (email &&
-    contraseña  && 
+    password  && 
     fullName &&
     documentType &&
-    confirmContraseña &&
+    confirmPassword &&
     documentNumber &&
 
-      contraseña !== confirmContraseña) {
+      password !== confirmPassword) {
       console.log('Las contraseñas no coinciden.');
     } else {
       console.log('entro else')
@@ -69,11 +72,13 @@ function Registro({
           documentType: documentType,
           documentNumber: documentNumber,
           email: email,
-          contraseña: contraseña,
-          confirmContraseña: confirmContraseña, 
+          password: password,
+          confirmPassword: confirmPassword, 
         })
         .then((resp) => {
           console.log('Usuario registrado con exito');
+          // history.push('/');
+          window.location.href = '/';
         })
         .catch((error) => {
           console.log('error');
@@ -137,21 +142,21 @@ function Registro({
               <div className=' mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center '>
                 <input
                   className='flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent'
-                  placeholder='Contraseña'
+                  placeholder='password'
                   type='password'
-                  name='contraseña'
-                  value={contraseña}
-                  onChange={handlecontraseña}
+                  name='password'
+                  value={password}
+                  onChange={handlepassword}
                 />
               </div>
               <div className=' mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center '>
                 <input
                   className='flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent'
-                  placeholder='Repetir Contraseña'
+                  placeholder='Repetir password'
                   type='password'
-                  name='confirmContraseña'
-                  value={confirmContraseña}
-                  onChange={handleconfirmContraseña}
+                  name='confirmPassword'
+                  value={confirmPassword}
+                  onChange={handleconfirmPassword}
                 />
               </div>
               <div className=' mx-1 border border-zinc-500 px-3 py-4 bg-celeste text-white gap-2 rounded-lg w-[25rem] flex items-center  justify-center'>
@@ -163,7 +168,7 @@ function Registro({
                   Confirmar Registro
                 </button>
                    </div>
-                 <Link to='/'>Volver al Login</Link>
+                   <div className='text-2xl mb-16 flex flex-row gap-1'>volver al  <Link className='text-celeste underline' to='/'> Login</Link></div>
             </form>
           </div>
         </div>

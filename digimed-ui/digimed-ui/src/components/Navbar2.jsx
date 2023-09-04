@@ -9,9 +9,9 @@ export function Navbar2() {
         
            
                 <div className="flex gap-[2.375rem] justify-end  items-center mr-36">
-                    <a href="#">Home</a>
+                    <a href="/#">Home</a>
                     <a href="#">Nosotros</a>
-                    <a href="#">Servicios</a>
+                    <a href="/servicios">Servicios</a>
                     <a href="#">Contacto</a>
                 </div>
        
