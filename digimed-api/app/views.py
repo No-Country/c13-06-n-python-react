@@ -1,10 +1,12 @@
 from flask import Blueprint, request, jsonify
+from flask_cors import CORS
 from .models import User, Patient
 from .db import session
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_jwt_extended import create_access_token, jwt_required
 
 api_v1 = Blueprint('api', __name__, url_prefix='/api/v1')
+CORS(api_v1)
 
 @api_v1.route('/register', methods={'POST'})
 def create_patient():
