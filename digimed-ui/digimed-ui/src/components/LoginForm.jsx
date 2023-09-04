@@ -47,12 +47,13 @@ export function LoginForm() {
       timeOutAlert();
       console.log('Completa los campos')
     } else {
-      console.log('usuario logeado')
+      console.log('usuario entro al else')
       axios.post('http://localhost:5000/api/v1/login', {
           email: email,
           password: password,
         })
         .then((resp) => {
+          console.log('usuario logeado')
           // setIsAllowed(true);
           navigate('/servicios');
           // history.push('/servicios');
