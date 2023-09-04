@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 // import hero from '../assets/image_hero.png';
 import Image from '../components/image';
+import axios from 'axios';
 
 function Registro({
   setShowLoginForm,
@@ -40,7 +41,7 @@ function Registro({
   };
 
   const handleRegistration = (e) => {
-    e.preventDefault;
+    e.preventDefault();
     if (
       email === '' ||
       contraseña === '' ||
@@ -48,10 +49,8 @@ function Registro({
       documentType === '' ||
       confirmContraseña === '' ||
       documentNumber === ''
-    ) {
-      console.log('Entro if')
-      
-      alert('Por favor, completa todos los campos.');
+    ) {     
+      console.log('Por favor, completa todos los campos.');
     } else if 
     
     (email &&
@@ -62,12 +61,10 @@ function Registro({
     documentNumber &&
 
       contraseña !== confirmContraseña) {
-      console.log('Entro Else if')
-      alert('Las contraseñas no coinciden.');
+      console.log('Las contraseñas no coinciden.');
     } else {
       console.log('entro else')
-      axios
-        .post('http://localhost:5000/api/v1/register', {
+      axios.post('http://localhost:5000/api/v1/register', {
           fullName: fullName,
           documentType: documentType,
           documentNumber: documentNumber,
@@ -76,7 +73,7 @@ function Registro({
           confirmContraseña: confirmContraseña, 
         })
         .then((resp) => {
-          alert('Usuario registrado con exito');
+          console.log('Usuario registrado con exito');
         })
         .catch((error) => {
           console.log('error');

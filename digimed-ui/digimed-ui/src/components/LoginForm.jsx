@@ -2,6 +2,7 @@
 import Registro from '../Pages/Registro';
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
 
 export function LoginForm() {
   // const [isAllowed, setIsAllowed] = useState(false)
@@ -44,8 +45,7 @@ export function LoginForm() {
       console.log('Completa los campos')
     } else {
       console.log('usuario logeado')
-      axios
-        .post('http://localhost:5000/api/v1/login', {
+      axios.post('http://localhost:5000/api/v1/login', {
           email: email,
           password: password,
         })
