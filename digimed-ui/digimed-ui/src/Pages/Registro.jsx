@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 // import Alert from '@mui/material/Alert';
-import { useNavigate, Link } from 'react-router-dom';
-// import hero from '../assets/image_hero.png';
-import Image from '../components/image';
+import { Link } from 'react-router-dom';
+//import hero from '../assets/image_hero.png';
+import Image from '../components/Image';
 import axios from 'axios';
 
 
@@ -69,8 +69,7 @@ function Registro() {
       password !== confirmPassword) {
       console.log('Las contraseñas no coinciden.');
     } else {
-      console.log('fullName:', fullName, 'documentType:', documentType, 'documentNumber:', documentNumber, 'confirmPassword:', confirmPassword );
-      axios.post('http://ec2-107-22-50-137.compute-1.amazonaws.com:5000/api/v1/register', {
+      axios.post('http://127.0.0.1:5000/api/v1/register', {
         "name":fullName.split(' ')[0],
         "last_name":fullName.split(' ')[1],
         "dni":documentNumber,
@@ -79,7 +78,8 @@ function Registro() {
         "password": password
       }).then((resp) => {
         console.log('Usuario registrado con exito');
-        navigate('/');
+        // history.push('/');
+        //window.location.href = '/';
       }).catch((error) => {
         console.log('error');
       });
