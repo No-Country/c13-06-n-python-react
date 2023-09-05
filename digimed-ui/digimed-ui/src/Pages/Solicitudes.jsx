@@ -105,6 +105,8 @@ function Solicitudes() {
             <option value="Juan Mauricio Venstre: Médico General">Juan Mauricio Venstre</option>
             <option value="Alicia Rodriguez: Médico General">Alicia Rodriguez</option>
           </select>
+          {selectedProfesional && <p>Seleccionaste:  {selectedProfesional}</p>}
+     
         </div>
 
         <div className="flex items-center justify-between mb-4">
