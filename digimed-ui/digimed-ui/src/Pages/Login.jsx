@@ -1,5 +1,5 @@
 import { LoginForm } from '../components/LoginForm';
-import Image from '../components/image';
+import Image from '../components/Image';
 import hero from '../assets/image_hero.png';
 // import Solicitudes from "./Solicitudes";
 
