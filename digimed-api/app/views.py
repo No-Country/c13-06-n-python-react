@@ -79,9 +79,18 @@ def get_patients():
     patients = session.query(Patient).all()
     #convert patients to json array
     patients_json = []
+    
     for patient in patients:
-        patient_data = patient.__dict__
-        del patient_data['_sa_instance_state']
+        user = session.query(User).filter(User.id == patient.user_id).first()
+        patient_data = {
+            "id": patient.id,
+            "name": patient.name,
+            "last_name": patient.last_name,
+            "email": user.email,
+            "dni": patient.dni,
+            "member": patient.member,
+            "user_id": patient.user_id
+        }
         patients_json.append(patient_data)
     #return patients as json
     return jsonify(patients_json)
@@ -91,9 +100,15 @@ def get_patients():
 @jwt_required()
 def get_patient_by_id(id):
     patient = session.query(Patient).filter(Patient.id == id).first()
-    #convert patient to json
-    patient_json = patient.__dict__
-    del patient_json['_sa_instance_state']
+    user = session.query(User).filter(User.id == patient.user_id).first()
     #return patient as json
-    return jsonify(patient_json)
+    return jsonify({
+        "id": patient.id,
+        "name": patient.name,
+        "last_name": patient.last_name,
+        "email": user.email,
+        "dni": patient.dni,
+        "member": patient.member,
+        "user_id": patient.user_id
+    })
         
