@@ -25,8 +25,7 @@ export function RegistroForm() {
         })
         .then((resp) => {
           console.log("Usuario registrado con exito");
-          // history.push('/');
-          //window.location.href = '/';
+          
         })
         .catch((error) => {
           console.log("error",error);
