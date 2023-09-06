@@ -17,7 +17,7 @@ class User(Base):
     password = Column(String(250), nullable=False)
     created_at = Column(DateTime(), default=datetime.now())
 
-    #Override del metodo __repr__ para mostrar los datos del paciente
+    #Override del metodo __repr__ para mostrar los datos del usuario
     def __repr__(self):
         return f"<User(id='{self.id}', username='{self.username}, email={self.email}, password={self.password}, created_at={self.created_at}')>"
 
@@ -57,7 +57,7 @@ class Medicine(Base):
     __tablename__ = 'medicines'
 
     id = Column(Integer(), primary_key=True)
-    medicine = Column(String(70), , nullable=False)
+    medicine = Column(String(70), nullable=False)
     tradename = Column(String(70))
     presentation = Column(String(70), nullable=False)
     
@@ -76,6 +76,6 @@ class Prescription(Base):
     doctor_id = Column(Integer(), ForeignKey('doctors.id'))
     medicine_id = Column(Integer(), ForeignKey('medicines.id'))
 
-#Override del metodo __repr__ para mostrar los datos del paciente
+#Override del metodo __repr__ para mostrar los datos de la receta
 def __repr__(self):
         return f"<Prescription(id='{self.id}', prescription_date='{self.prescription_date}', signature='{self.signature}', patient_id='{self.patient_id}',doctor_id='{self.doctor_id}', medicine_id='{self.medicine_id}')>"
