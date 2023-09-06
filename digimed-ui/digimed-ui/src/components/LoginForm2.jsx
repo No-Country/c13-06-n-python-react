@@ -33,6 +33,8 @@ export function LoginForm2() {
             Le damos la bienvenida.
           </p>
           <p className='text-2xl mb-16'>Si ya tiene cuenta</p>
+
+          
           <form onSubmit={formik.handleSubmit} className='flex flex-col gap-6'>
             {/* <input type="text" placeholder="Email"/>
             <input type="text" placeholder="Password"/> */}
