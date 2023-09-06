@@ -6,26 +6,15 @@ import Image from '../components/Image';
 import axios from 'axios';
 // import { useHistory } from 'react-router-dom';
 
-function Registro({
-  // setShowLoginForm,
-  // setShowRegistro,
-  email,
-  password,
-  handleemail,
-  handlepassword,
-}) {
+function Registro() {
   // const history = useHistory();
 
   const [fullName, setFullName] = useState('');
   const [documentType, setDocumentType] = useState('');
   const [documentNumber, setDocumentNumber] = useState('');
   const [confirmPassword, setconfirmPassword] = useState('');
-
-  // const goBack = () => {
-  //   setShowLoginForm(true);
-  //   setShowRegistro(false);
-  // };
-  /* console.log(email, password) */
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState(''); 
 
   const handlefullName = (e) => {
     setFullName(e.target.value);
@@ -41,6 +30,14 @@ function Registro({
 
   const handleconfirmPassword = (e) => {
     setconfirmPassword(e.target.value);
+  };
+
+  const handleemail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlepassword = (e) => {
+    setPassword(e.target.value);
   };
 
   const handleRegistration = (e) => {
