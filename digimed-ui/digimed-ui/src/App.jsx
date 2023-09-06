@@ -3,9 +3,10 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from './layout/Layout';
 import { Login } from './Pages/Login';
-import { Test } from './Pages/Test';
-import Registro from './Pages/Registro';
-import Servicios from './Pages/servicios';
+import { Registro2 } from './Pages/Registro2';
+// import { Test } from './Pages/Test';
+// import Registro from './Pages/Registro';
+// import Servicios from './Pages/servicios';
 
 
 
@@ -18,6 +19,7 @@ function App() {
       <BrowserRouter>
         <Routes>
         <Route path="/" element = {<Layout><Login/></Layout>} />
+        <Route path="/registro" element = {<Layout><Registro2/></Layout>} />
         {/* <Route path="/registro" element = {<Layout><Registro/></Layout>} />
         <Route path="/servicios" element = {<Layout><Servicios/></Layout>} /> */}
 

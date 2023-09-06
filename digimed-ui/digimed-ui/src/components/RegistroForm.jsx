@@ -1,116 +1,129 @@
-// import React, { useState } from 'react';
+import {useFormik} from "formik"
 
-// function RegistroForm() {
-//   const [formData, setFormData] = useState({
-//     fullName: '',
-//     documentType: '',
-//     documentNumber: '',
-//     email: '',
-//     password: '',
-//     confirmPassword: ''
-//   });
 
-//   const handleInputChange = (event) => {
-//     const { name, value } = event.target;
-//     setFormData((prevData) => ({
-//       ...prevData,
-//       [name]: value
-//     }));
-//   };
+export  function RegistroForm() {
+    
+    
+    const formik = useFormik({
+        initialValues:{
+            fullName:"",
+            documentType:"",
+            documentNumber:"",
+            email:"",
+            password:"",
+            confirmPassword:""
+        },
+    
+        onSubmit:(values,{resetForm})=>{
+            console.log("formik values on submit",values)
+            resetForm({values:""})
+        },
+        validate: values => {
+            let errors = {};
+            if(!values.fullName){
+                errors.fullName = "Nombre y Apellido es requerido";
+            }
+            if(!values.documentType){
+                errors.documentType = "Tipo de ID es requerido"; 
+            }
+            if(!values.documentNumber){
+                errors.documentNumber = "Numero de ID es requerido"; 
+            }
+            if(!values.email){
+                errors.email = "Email es requerido";
+            }
+            if(!values.password){
+                errors.password = "Contraseña es requerida"; 
+            }
+            if(!values.confirmPassword){
+                errors.confirmPassword = "Confirmar Contraseña es requerida"; 
+            }
+            if(values.password !== values.confirmPassword){
+                errors.confirmPassword = "Las contraseñas no coinciden"; 
+            }
+            return errors;
+        }
+    })
 
-//   const handleRegistration = () => {
-//     if (
-//       formData.fullName &&
-//       formData.documentType &&
-//       formData.documentNumber &&
-//       formData.email &&
-//       formData.password &&
-//       formData.confirmPassword
-//     ) {
-//       if (formData.password === formData.confirmPassword) {
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <div className="flex flex-col md:flex-row md:space-x-6">
+      <p className="font-bold text-azul-oscuro text-3xl mb-8">Registro</p>
+        <p className="text-2xl mb-16">Por favor, complete el formulario</p>
+        <form onSubmit={formik.handleSubmit} className="flex flex-col gap-6">
+        <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center ">
+        <input
+          className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
+          id="fullName"
+          name="fullName"
+          type="text"
+          onChange={formik.handleChange}
+          value={formik.values.fullName}
+          placeholder="Nombre y Apellido"
+        />
+      </div>
+      <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[12rem] flex items-center ">
+        <input
+          className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
+          id="documentType"
+          name="documentType"
+          type="text"
+          onChange={formik.handleChange}
+          value={formik.values.documentType}
+          placeholder="Tipo de ID"
+        />
+      </div>
+      <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[12rem] flex items-center ">
+        <input
+          className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
+          id="documentNumber"
+          name="documentNumber"
+          type="number"
+          onChange={formik.handleChange}
+          value={formik.values.documentNumber}
+          placeholder="Numero de ID"
+        />
+      </div>
+      <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center ">
+        <input
+          className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
+          placeholder="Email"
+          type="email"
+          id='email'
+          name="email"
+          onChange={formik.handleChange}
+          value={formik.values.email}
+        />
+      </div>
+      <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center ">
+        <input
+          className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
+          placeholder="Contraseña"
+          id='password'
+          type="password"
+          name="password"
+          onChange={formik.handleChange}
+          value={formik.values.password}
+        />
+        </div>
+        <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center ">
+        <input
+          className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
+          placeholder="Repetir Contraseña"
+          id='confirmPassword'
+          type="password"
+          name="confirmPassword"
+          onChange={formik.handleChange}
+          value={formik.values.confirmPassword}
+        />
+      </div>
+      <div className=" mx-1 border border-zinc-500 px-3 py-4 bg-celeste text-white gap-2 rounded-lg w-[25rem] flex items-center  justify-center">
+      <button type="submit">Confirmar Registro</button>
+      </div>
+      </form>
+      </div>
+    </div>
+  );
+}
 
-//         alert('Usuario registrado exitosamente.');
-//       } else {
-//         alert('Las contraseñas no coinciden.');
-//       }
-//     } else {
-//       alert('Por favor, completa todos los campos.');
-//     }
-//   };
 
-//   return (
-//     <div className="flex justify-center items-center h-screen">
-//       <div className="flex flex-col md:flex-row md:space-x-6">
-//       <p className="font-bold text-azul-oscuro text-3xl mb-8">Registro</p>
-//         <p className="text-2xl mb-16">Por favor, complete el formulario</p>
-//         <form action="" className="flex flex-col gap-6">
-//         <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center ">
-//         <input
-//           className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
-//           placeholder="Nombre y Apellido"
-//           type="text"
-//           name="fullName"
-//           value={formData.fullName}
-//           onChange={handleInputChange}
-//         />
-//       </div>
-//       <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[12rem] flex items-center ">
-//         <input
-//           className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
-//           placeholder="Tipo de ID"
-//           type="text"
-//           name="documentType"
-//           value={formData.documentType}
-//           onChange={handleInputChange}
-//         />
-//       </div>
-//       <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[12rem] flex items-center ">
-//         <input
-//           className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
-//           placeholder="Numero de ID"
-//           type="number"
-//           name="documentNumber"
-//           value={formData.documentNumber}
-//           onChange={handleInputChange}
-//         />
-//       </div>
-//       <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center ">
-//         <input
-//           className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
-//           placeholder="Email"
-//           type="email"
-//           name="email"
-//           value={formData.email}
-//           onChange={handleInputChange}
-//         />
-//       </div>
-//       <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center ">
-//         <input
-//           className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
-//           placeholder="Contraseña"
-//           type="password"
-//           name="password"
-//           value={formData.password}
-//           onChange={handleInputChange}
-//         />
-//         </div>
-//         <div className=" mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center ">
-//         <input
-//           className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
-//           placeholder="Repetir Contraseña"
-//           type="password"
-//           name="confirmPassword"
-//           value={formData.confirmPassword}
-//           onChange={handleInputChange}
-//         />
-//       </div>
-//       <div className=" mx-1 border border-zinc-500 px-3 py-4 bg-celeste text-white gap-2 rounded-lg w-[25rem] flex items-center  justify-center">
-//       <button onClick={handleRegistration}>Confirmar Registro</button>
-//       </div>
-//       </form>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default RegistroForm;

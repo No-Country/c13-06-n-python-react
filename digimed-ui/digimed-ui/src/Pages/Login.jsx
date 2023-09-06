@@ -1,6 +1,6 @@
-import { LoginForm } from '../components/LoginForm';
+// import { LoginForm } from '../components/LoginForm';
 import Image from '../components/image';
-import hero from '../assets/image_hero.png';
+// import hero from '../assets/image_hero.png';
 import { LoginForm2 } from '../components/LoginForm2';
 // import Solicitudes from "./Solicitudes";
 
@@ -10,7 +10,6 @@ export function Login() {
       <Image />
 
       <LoginForm2 />
-      <h1>tesssttt</h1>
     </div>
   );
 }
