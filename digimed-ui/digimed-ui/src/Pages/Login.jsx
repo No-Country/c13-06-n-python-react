@@ -1,6 +1,7 @@
 import { LoginForm } from '../components/LoginForm';
 import Image from '../components/image';
 import hero from '../assets/image_hero.png';
+import { LoginForm2 } from '../components/LoginForm2';
 // import Solicitudes from "./Solicitudes";
 
 export function Login() {
@@ -8,7 +9,8 @@ export function Login() {
     <div className='flex '>
       <Image />
 
-      <LoginForm />
+      <LoginForm2 />
+      <h1>tesssttt</h1>
     </div>
   );
 }

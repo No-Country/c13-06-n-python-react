@@ -16,6 +16,9 @@ export function LoginForm() {
   const [showRegistro, setShowRegistro] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(true);
 
+  console.log(email)
+  console.log(password)
+
   const handleemail = (e) => {
     setEmail(e.target.value);
   };
@@ -30,23 +33,24 @@ export function LoginForm() {
   //   setShowRegistro(true);
   //   setShowLoginForm(false);
   // };
-  const timeOutAlert = () => {
-    setTimeout(() => {
-      setShowAlert(false);
-    }, 2000);
-  };
+  // const timeOutAlert = () => {
+  //   setTimeout(() => {
+  //     setShowAlert(false);
+  //   }, 2000);
+  // };
 
-  const timeOutUser = () => {
-    setTimeout(() => {
-      setShowAlertEmail(false);
-    }, 2000);
-  };
+  // const timeOutUser = () => {
+  //   setTimeout(() => {
+  //     setShowAlertEmail(false);
+  //   }, 2000);
+  // };
   const enter = () => {
-    if (email === '' || password === '') {
-      setShowAlert(true);
-      timeOutAlert();
-      console.log('Completa los campos')
-    } else {
+    // console.log("email", email)   
+    //  if (email === '' || password === '') {
+    //   setShowAlert(true);
+    //   timeOutAlert();
+    //   console.log('Completa los campos')
+    // } else {
       console.log('usuario entro al else')
       axios.post('http://localhost:5000/api/v1/login', {
           email: email,
@@ -60,18 +64,18 @@ export function LoginForm() {
           // window.location.href = '/servicios'
         })
         .catch((error) => {
-          setShowAlertEmail(true);
-          timeOutUser();
+          // setShowAlertEmail(true);
+          // timeOutUser();
         });
-    }
+    // }
   };
  
 
   return (
     <div className='flex flex-col '>
-      {showAlert && alert('Por favor, completa todos los campos.')}
+      {/* {showAlert && alert('Por favor, completa todos los campos.')}
       {ShowAlertEmail &&
-        alert('Email no existe, por favor verifica e ingresa nuevamente')}
+        alert('Email no existe, por favor verifica e ingresa nuevamente')} */}
 
       {showLoginForm ? (
         <div>
@@ -107,7 +111,7 @@ export function LoginForm() {
             <div className=' mx-1 border border-zinc-500 px-3 py-4 bg-celeste text-white gap-2 rounded-lg w-[25rem] flex items-center  justify-center'>
               {/* <Search className="mx-1h-5 w-5 text-zinc-500" /> */}
 
-              <button
+              <button type='submit'
                 onClick={() => {
                   enter();
                 }}
