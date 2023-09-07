@@ -7,6 +7,7 @@ import { Test } from './Pages/Test';
 import Registro from './Pages/Registro';
 import Servicios from './Pages/servicios';
 import Solicitudes from './Pages/Solicitudes';
+import Visualizacion from './Pages/visualizacion';
 
 
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/registro" element = {<Layout><Registro/></Layout>} />
         <Route path="/servicios" element = {<Layout><Servicios/></Layout>} />
         <Route path="/solicitudes" element = {<Layout><Solicitudes/></Layout>} />
+        <Route path="/visualizacion" element = {<Layout><Visualizacion/></Layout>} />
 
         {/* <Route path="/test" element = {<Layout><Test/></Layout>} /> */}
         </Routes>       
