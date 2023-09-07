@@ -6,21 +6,14 @@ import Image from '../components/image';
 import axios from 'axios';
 // import { useHistory } from 'react-router-dom';
 
-function Registro({
-  // setShowLoginForm,
-  // setShowRegistro,
-  email,
-  password,
-  handleemail,
-  handlepassword,
-}) {
+function Registro() {
   // const history = useHistory();
 
   const [fullName, setFullName] = useState('');
   const [documentType, setDocumentType] = useState('');
   const [documentNumber, setDocumentNumber] = useState('');
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [confirmPassword, setconfirmPassword] = useState('');
 
   // const goBack = () => {
@@ -44,13 +37,15 @@ function Registro({
   const handleconfirmPassword = (e) => {
     setconfirmPassword(e.target.value);
   };
-  // const handleemail = (e) => {
-  //   setEmail(e.target.value);
-  // };
-  // const handlepassword = (e) => {
-  //   setPassword(e.target.value);
-  // };
+  const handleemail = (e) => {
+    setEmail(e.target.value);
+  };
+  const handlepassword = (e) => {
+    setPassword(e.target.value);
+  };
 
+  // console.log('fullName:', fullName, 'password:', password, 'email:', 
+  //     email, 'documentType:', documentType, 'documentNumber:', documentNumber, 'confirmPassword:', confirmPassword );
   const handleRegistration = (e) => {
     e.preventDefault();
     if (
@@ -74,8 +69,8 @@ function Registro({
       password !== confirmPassword) {
       console.log('Las contraseñas no coinciden.');
     } else {
-      console.log('fullName:', email, 'Contraseña:', password)
-      axios.post('http://127.0.0.1:5000/api/v1/register', {
+      console.log('fullName:', fullName, 'documentType:', documentType, 'documentNumber:', documentNumber, 'confirmPassword:', confirmPassword );
+      axios.post('http://ec2-107-22-50-137.compute-1.amazonaws.com:5000/api/v1/register', {
         "name":fullName.split(' ')[0],
         "last_name":fullName.split(' ')[1],
         "dni":documentNumber,

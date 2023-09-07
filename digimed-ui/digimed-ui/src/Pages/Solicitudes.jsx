@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate, Link } from 'react-router-dom';
 
 
 function Solicitudes() {
+  const navigate = useNavigate();
+
   const [selectedCobertura, setSelectedCobertura] = useState('');
   const [selectedPlan, setSelectedPlan] = useState('');
+  const [afiliado, setAfiliado] = useState('');
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedProfesional, setSelectedProfesional] = useState('');
   const [selectedMedicamento, setSelectedMedicamento] = useState('');  
@@ -15,6 +20,10 @@ function Solicitudes() {
 
   const handlePlanChange = (event) => {
     setSelectedPlan(event.target.value);
+  };
+
+  const handleAfiliadoChange = (event) => {
+    setAfiliado(event.target.value);
   };
 
   const handleOptionClick = (option) => {
@@ -32,7 +41,38 @@ function Solicitudes() {
   const handleDosisChange = (event) => {
     setSelectedDosis(event.target.value);
   };
+  
+  console.log('selectedCobertura:', selectedCobertura, 'selectedPlan:', selectedPlan, 
+  'afiliado:', afiliado,'selectedOption:', selectedOption, 'selectedProfesional:', selectedProfesional, 
+  'selectedMedicamento:', selectedMedicamento, 'selectedDosis:', selectedDosis  );
 
+
+  const handleConfirmarSolicitud  = (e) => {
+    e.preventDefault();
+    if (!selectedCobertura || !selectedPlan || !selectedOption || !afiliado||
+      !selectedProfesional || !selectedMedicamento ||!selectedDosis ){
+        alert('Por favor, complete todos los campos antes de confirmar la solicitud.');
+      }
+    else {
+      console.log('selectedCobertura:', selectedCobertura, 'selectedPlan:', selectedPlan, 
+      'selectedOption:', selectedOption, 'afiliado:', afiliado,'selectedProfesional:', selectedProfesional, 
+      'selectedMedicamento:', selectedMedicamento, 'selectedDosis:', selectedDosis  );
+
+      axios.post('http://127.0.0.1:5000/api/v1/visualizacion', {
+        "selectedCobertura":selectedCobertura,
+        "selectedPlan":selectedPlan,
+        "selectedOption":selectedOption,
+        "selectedProfesional":selectedProfesional,
+        "selectedMedicamento": selectedMedicamento,
+        "selectedDosis": selectedDosis
+      }).then((resp) => {
+        console.log('Confirmacion de solicitud recibida');
+        navigate('/Visualizacion');
+      }).catch((error) => {
+        console.log('error');
+      });
+    }
+  };
   return (
     <div>
   <p className="text-azul-claro text-center font-roboto font-bold text-2xl mb-16">
@@ -42,9 +82,10 @@ function Solicitudes() {
     <div className="w-10/12 h-100 ml-16 mr-16 flex-shrink-0 border rounded-lg bg-destacar shadow-md p-8 flex items-center justify-center mb-16">
       <div className="flex flex-col w-full">
        
+        <div className='flex'>
         <div className="flex mb-4">
           <select
-            className="mx-1 px-3 py-4 gap-2 w-[25rem]"
+            className="mx-1 px-3 py-4 gap-2  mr-14 w-[25rem]"
             value={selectedCobertura}
             onChange={handleCoberturaChange}
           >
@@ -53,45 +94,50 @@ function Solicitudes() {
             <option value="Especializada">Especializada</option>
             <option value="Total">Total</option>
           </select>
-        </div>
-
+          </div>
         
         <div className="flex items-center mb-4">
           <select
             className="mx-1 px-3 py-4 gap-2 w-[25rem]"
             value={selectedPlan}
             onChange={handlePlanChange}
-          >
+            >
             <option value="">Plan</option>
             <option value="Basico">Basico</option>
             <option value="Especializado">Especializado</option>
             <option value="Empresarial">Empresarial</option>
           </select>
         </div>
+        </div>
        
         <div className="flex items-center mb-4">
-          <input
-            className="mx-1 px-3 py-4 gap-2 w-[25rem]"
-            type="text"
-            placeholder="N° Afiliado"
-          />
-        </div>
+        <input
+          className="mx-1 px-3 py-4 mr-14 w-[25rem]"
+          placeholder="N° Afiliado"
+          type="number"
+          name="afiliado"
+          value={afiliado}
+          onChange={handleAfiliadoChange} // Cambio aquí
+        />
         <div className="flex items-center mb-4">
           <h1 className="mr-2">¿Es laboral?</h1>
-          <div
-            className={`option-circle ${selectedOption === 'si' ? 'selected' : ''}`}
-            onClick={() => handleOptionClick('si')}
-          >
+          <div 
+            className={`option-circle mr-2 ${selectedOption === 'Si' ?  'selected' : ''}`}
+            onClick={() => handleOptionClick('Si')}
+            >
             Sí
           </div>
           <div
-            className={`option-circle ${selectedOption === 'no' ? 'selected' : ''}`}
-            onClick={() => handleOptionClick('no')}
-          >
+            className={`option-circle mr-4 ${selectedOption === 'No' ? 'selected' : ''}`}
+            onClick={() => handleOptionClick('No')}
+            >
             No
           </div>
+          {selectedOption && (
+            <p className="font-bold text-blue-800">Seleccionaste {selectedOption}</p> )}    
         </div>
-              
+            </div>
+         
         <div className="flex items-center justify-between mb-4">
           <select
             className="mx-1 px-3 py-4 gap-2 w-full"
@@ -142,7 +188,11 @@ function Solicitudes() {
           
         </div>
       <div className="mx-1 border border-zinc-500 px-3 py-4 bg-celeste text-white gap-2 rounded-lg w-full flex items-center  justify-center">
-        <button>Confirmar solicitud</button>
+        <button
+        onClick={(e) => {
+           handleConfirmarSolicitud(e);
+        }}>Confirmar solicitud
+        </button>
       </div>
       </div>
 
