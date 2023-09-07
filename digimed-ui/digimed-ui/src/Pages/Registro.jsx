@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 // import Alert from '@mui/material/Alert';
+import { useNavigate, Link } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 // import hero from '../assets/image_hero.png';
 import Image from '../components/image';
 import axios from 'axios';
-// import { useHistory } from 'react-router-dom';
+
 
 function Registro() {
-  // const history = useHistory();
+  const navigate = useNavigate();
 
   const [fullName, setFullName] = useState('');
   const [documentType, setDocumentType] = useState('');
@@ -79,8 +80,7 @@ function Registro() {
         "password": password
       }).then((resp) => {
         console.log('Usuario registrado con exito');
-        // history.push('/');
-        //window.location.href = '/';
+        navigate('/');
       }).catch((error) => {
         console.log('error');
       });

@@ -1,55 +1,86 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PDFViewer, PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 
 // Define un componente de React para el documento PDF
 const MyDocument = ({ data }) => (
   <Document>
     <Page size="A4">
-      <View className="m-10 p-10 flex-grow-1">
-        <Text>Pciente:</Text>
+   
+      <View style={{ fontWeight: 'bold', color: 'darkblue', textAlign: 'center', marginTop:'20px',marginBottom:'20px' }} >
+        <Text style={{fontSize:'25px'}}>Medico tratante:</Text>
+        <Text>{data.selectedProfesional}</Text>
+        <Text >DIGIMED</Text>
+        
+      </View>
+      <hr style={{ border: '1px solid black', marginBottom:'20px' }} />
+
+      <View style={{ marginLeft:'20px', marginTop:'20px',marginBottom:'40px' }} >
+        <Text style={{ fontWeight: 'bold', fontSize:'25px'}}>Paciente:</Text>
         <Text>{data.fullName}</Text>
         <Text>DNI N°:</Text>
         <Text>{data.documentNumber}</Text>
+        
       </View>
 
-      <View className="m-10 p-10 flex-grow-1">
+      <View style={{ textAlign: 'center', marginBottom: '1rem', marginBottom:'80px'}} >
+             
         <Text>Datos de Solicitud:</Text>
-        <Text className='mr-2'>Cobertura:</Text>
-        <Text>{data.selectedCobertura}</Text>
+        <Text>Cobertura:</Text>
+        <Text >{data.selectedCobertura}</Text>
 
-        <Text className='mr-2'>Plan:</Text>
-        <Text>{data.selectedPlan}</Text>
+        <Text >Plan:</Text>
+        <Text style={{marginBottom:'10px'}}>{data.selectedPlan}</Text>
 
-        <Text className='mr-2'>N° Afiliado:</Text>
+        <Text >N° Afiliado:</Text>
         <Text>{data.afiliado}</Text>
 
-        <Text className="font-bold text-blue-800 mr-2">{data.selectedOption}</Text>
-        <Text> es Laboral</Text>
+        <Text >{data.selectedOption}</Text>
+        <Text style={{marginBottom:'20px'}}> es Laboral</Text>
 
-        <Text className='mr-2'>Medico tratante:</Text>
-        <Text>{data.selectedProfesional}</Text>
-
-        <Text className='mr-2'>Medicamento:</Text>
+        
+        <Text >Medicamento:</Text>
         <Text>{data.selectedMedicamento}</Text>
 
-        <Text className='mr-2'>Dosis:</Text>
-        <Text>{data.selectedDosis}</Text>
+        <Text >Dosis:</Text>
+        <Text >{data.selectedDosis}</Text>
              
+      </View>
+      <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+      <View style={{ fontWeight: 'bold', marginLeft:'20px',marginTop:'20px',marginBottom:'20px' }} >
+        <Text>{new Date().toLocaleDateString()}</Text>
+        <View style={{ borderBottom: '1px solid darkblue', width: '100%' }} />
+        <Text >fecha</Text>
+      </View>
+
+      <View style={{ fontWeight: 'bold', marginLeft:'200px',marginTop:'20px',marginBottom:'20px' }} >
+        <Text >Medico tratante:</Text>
+        <Text>{data.selectedProfesional}</Text>
+        <View style={{ borderBottom: '1px solid darkblue', width: '100%' }} />
+        <Text style={{ textAlign: 'center' }}>Firma</Text>
+      </View>
+      </View>
+      <View style={{ fontWeight: 'bold', textAlign:'center',marginTop:'60px',color: 'darkblue',
+      fontStyle: 'italic', fontSize: '12px', marginBottom:'20px' }} >
+         <View style={{ borderBottom: '1px solid black', width: '100%', marginBottom:'20px'}} />
+        <Text >Comprometidos con tu salud</Text>
+        <Text >Resolucion 8 de medicina del 2006</Text>
+        <Text >todo al alcance de tus manos</Text>
+        <Text >Digimed</Text>
       </View>
     </Page>
   </Document>
 );
 
 function Visualizacion() {
-  // Simplemente renderiza el componente PDF con los datos que necesitas
+  
   const data = {
-    // Puedes obtener estos datos de alguna fuente, como el estado o props
-    fullName: 'Nombre Completo del Usuario',
+    fullName: 'HHHHHH',
     email: 'correo@example.com',
     selectedCobertura: 'Cobertura seleccionada',
     selectedPlan: 'Plan seleccionado',
-    // Agrega otros datos según tus necesidades
+    
   };
+
 
   return (
     <div>

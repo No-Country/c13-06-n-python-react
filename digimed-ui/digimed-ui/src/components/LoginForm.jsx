@@ -57,8 +57,6 @@ export function LoginForm() {
           console.log('usuario logeado')
           // setIsAllowed(true);
           navigate('/servicios');
-          // history.push('/servicios');
-          // window.location.href = '/servicios'
         })
         .catch((error) => {
           setShowAlertEmail(true);
