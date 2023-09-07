@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 // import Alert from '@mui/material/Alert';
 import { useNavigate, Link } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 // import hero from '../assets/image_hero.png';
 import Image from '../components/image';
 import axios from 'axios';
