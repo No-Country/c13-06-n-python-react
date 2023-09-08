@@ -1,5 +1,4 @@
 from flask import Blueprint, request, jsonify
-from flask_cors import CORS
 from .models import User, Patient, Doctor, Medicine, Prescription
 from .db import session
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -105,8 +104,7 @@ def get_patient_by_id(id):
 
 #Registra un nuevo Doctor
 @api_v1.route('/register/doctor', methods={'POST'})
-@jwt_required()
-def create_patient():
+def create_doctor():
     
     name = request.json['name']
     last_name = request.json['last_name']
