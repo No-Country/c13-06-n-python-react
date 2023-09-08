@@ -2,6 +2,7 @@ from flask import Flask
 from .views import api_v1
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins":"*"}})

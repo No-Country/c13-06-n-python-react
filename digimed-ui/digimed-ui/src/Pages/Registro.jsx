@@ -6,26 +6,17 @@ import Image from '../components/Image';
 import axios from 'axios';
 // import { useHistory } from 'react-router-dom';
 
-function Registro({
-  // setShowLoginForm,
-  // setShowRegistro,
-  email,
-  password,
-  handleemail,
-  handlepassword,
-}) {
+function Registro() {
   // const history = useHistory();
 
   const [fullName, setFullName] = useState('');
   const [documentType, setDocumentType] = useState('');
   const [documentNumber, setDocumentNumber] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
   const [confirmPassword, setconfirmPassword] = useState('');
-
-  // const goBack = () => {
-  //   setShowLoginForm(true);
-  //   setShowRegistro(false);
-  // };
-  /* console.log(email, password) */
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState(''); 
 
   const handlefullName = (e) => {
     setFullName(e.target.value);
@@ -41,6 +32,20 @@ function Registro({
 
   const handleconfirmPassword = (e) => {
     setconfirmPassword(e.target.value);
+  };
+  // const handleemail = (e) => {
+  //   setEmail(e.target.value);
+  // };
+  // const handlepassword = (e) => {
+  //   setPassword(e.target.value);
+  // };
+
+  const handleemail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlepassword = (e) => {
+    setPassword(e.target.value);
   };
 
   const handleRegistration = (e) => {
@@ -66,6 +71,7 @@ function Registro({
       password !== confirmPassword) {
       console.log('Las contraseñas no coinciden.');
     } else {
+      console.log('fullName:', email, 'Contraseña:', password)
       axios.post('http://127.0.0.1:5000/api/v1/register', {
         "name":fullName.split(' ')[0],
         "last_name":fullName.split(' ')[1],
@@ -93,8 +99,8 @@ function Registro({
         </div>
         <div className='flex justify-center items-center h-screen'>
           <div className='flex flex-col  '>
-            <p className='font-bold text-azul-oscuro text-3xl mb-8'>Registro</p>
-            <p className='text-2xl mb-16'>Por favor, complete el formulario</p>
+            <p className='font-bold text-azul-oscuro text-3xl mt-28 mb-6'>Registro</p>
+            <p className='text-2xl mb-8'>Por favor, complete el formulario</p>
             <form action='' className='flex flex-col gap-6'>
               <div className=' mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center '>
                 <input
@@ -106,6 +112,7 @@ function Registro({
                   onChange={handlefullName}
                 />
               </div>
+              <div className='flex space-x-4'>
               <div className=' mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[12rem] flex items-center '>
                 <input
                   className='flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent'
@@ -125,6 +132,7 @@ function Registro({
                   value={documentNumber}
                   onChange={handledocumentNumber}
                 />
+              </div>
               </div>
               <div className=' mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center '>
                 <input
