@@ -75,7 +75,8 @@ class Prescription(Base):
     patient_id = Column(Integer(), ForeignKey('patients.id'))
     doctor_id = Column(Integer(), ForeignKey('doctors.id'))
     medicine_id = Column(Integer(), ForeignKey('medicines.id'))
-
+    created_at = Column(DateTime(), default=datetime.now())
+    
 #Override del metodo __repr__ para mostrar los datos de la receta
 def __repr__(self):
         return f"<Prescription(id='{self.id}', prescription_date='{self.prescription_date}', signature='{self.signature}', patient_id='{self.patient_id}',doctor_id='{self.doctor_id}', medicine_id='{self.medicine_id}')>"

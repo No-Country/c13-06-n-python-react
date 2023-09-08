@@ -1,9 +1,9 @@
 from flask import Blueprint, request, jsonify
 from flask_cors import CORS
-from .models import User, Patient, Doctor, Medicine
+from .models import User, Patient, Doctor, Medicine, Prescription
 from .db import session
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask_jwt_extended import create_access_token, jwt_required
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
 api_v1 = Blueprint('api', __name__, url_prefix='/api/v1')
 
@@ -65,6 +65,7 @@ def login():
         'messages': message
 
         })
+
 #Obtemer usuario por id
 @api_v1.route('/user/<id>', methods={'GET'})
 @jwt_required()
@@ -104,6 +105,7 @@ def get_patient_by_id(id):
 
 #Registra un nuevo Doctor
 @api_v1.route('/register/doctor', methods={'POST'})
+@jwt_required()
 def create_patient():
     
     name = request.json['name']
@@ -134,7 +136,8 @@ def create_patient():
     })
 
 #Ingresar una nueva medicina
-@api_v1.route('/medicine', methods={'POST'})
+@api_v1.route('/register/medicine', methods={'POST'})
+@jwt_required()
 def create_medicine():
     medicine = request.json['medicine']
     tradename = request.json['tradename']
@@ -145,4 +148,47 @@ def create_medicine():
     session.commit()
     return jsonify({
         'messages': 'Medicamento creado correctamente'
+    })
+
+#Mostrar Doctores
+@api_v1.route('/doctors', methods={'GET'})
+@jwt_required()
+def get_doctors():
+    doctors = session.query(Doctor).all()
+    doctors_json = [{'id': doctor.id, 
+                     'name': doctor.name, 
+                     'last_name': doctor.last_name, 
+                     'registration': doctor.registration, 
+                     'speciality': doctor.speciality, 
+                     'active': doctor.active, 
+                     'user_id':doctor.user_id} for doctor in doctors]
+    return jsonify(doctors=doctors_json)
+    
+#Mostrar medicinas
+@api_v1.route('/medicines', methods={'GET'})
+@jwt_required()
+def get_medicines():
+    medicines = session.query(Medicine).all()
+    medicines_json = [{'id': medicine.id, 
+                       'medicine': medicine.medicine, 
+                       'tradename': medicine.tradename,
+                       'presentation': medicine.presentation} for medicine in medicines]
+    return jsonify(medicines=medicines_json)
+
+#Crear nueva Receta
+@api_v1.route('/prescription', methods={'POST'})
+@jwt_required()
+def create_prescription():
+    
+    prescription_date = request.json['prescription_date']
+    signature = True
+    patient_id = get_jwt_identity()
+    doctor_id = request.json['doctor_id']
+    medicine_id = request.json['medicine_id']
+
+    new_prescription = Prescription(prescription_date=prescription_date, patient_id=patient_id, doctor_id=doctor_id, medicine_id=medicine_id, signature=signature)
+    session.add(new_prescription)
+    session.commit()
+    return jsonify({
+        'message':'Receta creada corectamente'
     })
