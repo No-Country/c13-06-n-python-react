@@ -5,7 +5,7 @@ import { Layout } from './layout/Layout';
 import { Login } from './Pages/Login';
 import { Test } from './Pages/Test';
 import Registro from './Pages/Registro';
-import Servicios from './Pages/servicios';
+import Servicios from './Pages/Servicios';
 import Solicitudes from './Pages/Solicitudes';
 
 

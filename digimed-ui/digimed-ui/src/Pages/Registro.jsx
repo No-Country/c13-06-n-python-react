@@ -72,7 +72,7 @@ function Registro() {
       console.log('Las contraseñas no coinciden.');
     } else {
       console.log('fullName:', email, 'Contraseña:', password)
-      axios.post('http://127.0.0.1:5000/api/v1/register', {
+      axios.post(`${import.meta.env.VITE_API_URL}:${import.meta.env.VITE_API_PORT}/api/v1/register`, {
         "name":fullName.split(' ')[0],
         "last_name":fullName.split(' ')[1],
         "dni":documentNumber,

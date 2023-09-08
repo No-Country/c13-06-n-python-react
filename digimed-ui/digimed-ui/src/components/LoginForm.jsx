@@ -41,14 +41,14 @@ export function LoginForm() {
       setShowAlertEmail(false);
     }, 2000);
   };
-  const enter = () => {
+  const enter = (e) => {
+    e.preventDefault()
     if (email === '' || password === '') {
       setShowAlert(true);
       timeOutAlert();
       console.log('Completa los campos')
     } else {
-      console.log('usuario entro al else')
-      axios.post('http://localhost:5000/api/v1/login', {
+      axios.post(`${import.meta.env.VITE_API_URL}:${import.meta.env.VITE_API_PORT}/api/v1/login`, {
           email: email,
           password: password,
         })
@@ -108,8 +108,8 @@ export function LoginForm() {
               {/* <Search className="mx-1h-5 w-5 text-zinc-500" /> */}
 
               <button
-                onClick={() => {
-                  enter();
+                onClick={(e) => {
+                  enter(e);
                 }}
               >
                 Ingresar
