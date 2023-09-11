@@ -44,8 +44,8 @@ function Registro() {
     setPassword(e.target.value);
   };
 
-  // console.log('fullName:', fullName, 'password:', password, 'email:', 
-  //     email, 'documentType:', documentType, 'documentNumber:', documentNumber, 'confirmPassword:', confirmPassword );
+  console.log('fullName:', fullName, 'password:', password, 'email:', 
+      email, 'documentType:', documentType, 'documentNumber:', documentNumber, 'confirmPassword:', confirmPassword );
   const handleRegistration = (e) => {
     e.preventDefault();
     if (

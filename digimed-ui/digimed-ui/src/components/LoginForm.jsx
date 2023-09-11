@@ -49,19 +49,19 @@ export function LoginForm() {
       console.log('Completa los campos')
     } else {
       console.log('usuario entro al else')
-      axios.post('http://ec2-107-22-50-137.compute-1.amazonaws.com:5000/api/v1/login', {
-          email: email,
-          password: password,
-        })
-        .then((resp) => {
+      // axios.post('http://ec2-107-22-50-137.compute-1.amazonaws.com:5000/api/v1/login', {
+      //     email: email,
+      //     password: password,
+      //   })
+      //   .then((resp) => {
           console.log('usuario logeado')
           // setIsAllowed(true);
           navigate('/servicios');
-        })
-        .catch((error) => {
-          setShowAlertEmail(true);
-          timeOutUser();
-        });
+        // })
+        // .catch((error) => {
+        //   setShowAlertEmail(true);
+        //   timeOutUser();
+        // });
     }
   };
  
