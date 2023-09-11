@@ -1,0 +1,8 @@
+from marshmallow import Schema
+
+class UserSchema(Schema):
+    class Meta:
+        fields = ('id', 'username', 'email')
+
+user_schema = UserSchema()
+users_schema = UserSchema(many=True)

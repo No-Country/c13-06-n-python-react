@@ -3,6 +3,8 @@ from .models import User, Patient, Doctor, Medicine, Prescription
 from .db import session
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from .schemas import user_schema, users_schema
+from .responses import response
 
 api_v1 = Blueprint('api', __name__, url_prefix='/api/v1')
 
@@ -71,11 +73,7 @@ def login():
 def get_user(id):
     user = session.query(User).filter(User.id==id).first()
     print(user)
-    return jsonify({
-            'id':user.id,
-            'username':user.username,
-            'email':user.email
-        })
+    return response(user_schema.dump(user))
     
 #Mostrar todos los pacientes
 @api_v1.route('/patients', methods={'GET'})
