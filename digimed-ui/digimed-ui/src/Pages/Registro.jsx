@@ -12,8 +12,6 @@ function Registro() {
   const [fullName, setFullName] = useState('');
   const [documentType, setDocumentType] = useState('');
   const [documentNumber, setDocumentNumber] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [confirmPassword, setconfirmPassword] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState(''); 
