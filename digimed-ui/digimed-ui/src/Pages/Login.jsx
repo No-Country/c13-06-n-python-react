@@ -5,8 +5,19 @@ import hero from '../assets/image_hero.png';
 
 export function Login() {
   return (
-    <div className='flex '>
-      <Image />
+    <div className='flex flex-col md:flex-row'>
+      <div className='flex flex-col'> 
+
+      <div className='hidden lg:block'>
+
+      <Image/>
+      </div>
+      <div className='mb-10 flex text-center'> 
+      <span className='text-azul-oscuro font-semibold text-xl'>Aprovechamos la tecnología para hacer la vida más fácil.</span>
+      </div>
+
+
+      </div>
 
       <LoginForm />
     </div>

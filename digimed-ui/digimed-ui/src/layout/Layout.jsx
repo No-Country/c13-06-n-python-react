@@ -8,11 +8,16 @@ import { Navbar2 } from '../components/Navbar2';
 export function Layout({ children }) {
   return (
     <>
-      <div className='w-[80rem] mx-auto  px-20 pb-4 pt-10 flex flex-col  justify-between'>
-        <Navbar2 />
-        <div className='max-w-7xl'>{children}</div>
+      <div className='w-full md:w-[80rem] mx-auto px-4 md:px-20 pb-4 md:pt-10 flex flex-col  justify-between'>
+        <div className=''>
 
+        <Navbar2 />
+        </div>
+        <div className='lg:max-w-7xl flex justify-center'>{children}</div>
+<div className='hidden md:block'>
         <Footer2 />
+
+</div>
       </div>
     </>
   );
