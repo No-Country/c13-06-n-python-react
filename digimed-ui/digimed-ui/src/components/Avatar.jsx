@@ -1,6 +1,6 @@
 import React from 'react';
 import avatar from '../assets/avatar.svg'
-import Cookies from 'js-cookie';
+
 export function Avatar(props){
 	const [showMenu, setShowMenu] = React.useState(false);
 	const handleShowMenu = () => {

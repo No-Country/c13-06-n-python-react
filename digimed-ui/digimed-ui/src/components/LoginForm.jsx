@@ -43,8 +43,8 @@ export function LoginForm({ setisLoggedIn }) {
     }, 5000);
   };
 
-  if(Cookies.get('accessToken')){
-    Cookies.remove('accessToken');
+  if(Cookies.get('data')){
+    Cookies.remove('data');
   }
 
   const enter = (e) => {
@@ -60,7 +60,7 @@ export function LoginForm({ setisLoggedIn }) {
         })
         .then((resp) => {
           if(resp.status === 200){
-            Cookies.set('accessToken', resp.data.access_token, { expires: 3 });
+            Cookies.set('data', resp.data, { expires: 3 });
             setisLoggedIn(true);
             navigate('/servicios');
           }
