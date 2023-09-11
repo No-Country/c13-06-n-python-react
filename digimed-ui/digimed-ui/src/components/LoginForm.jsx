@@ -4,9 +4,10 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Notification } from './Notification';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 // import { useHistory } from 'react-router-dom';
 
-export function LoginForm() {
+export function LoginForm({ setisLoggedIn }) {
   // const history = useHistory();
   const navigate = useNavigate();
   // const [isAllowed, setIsAllowed] = useState(false)
@@ -41,6 +42,11 @@ export function LoginForm() {
       setShowAlertEmail(false);
     }, 5000);
   };
+
+  if(Cookies.get('accessToken')){
+    Cookies.remove('accessToken');
+  }
+
   const enter = (e) => {
     e.preventDefault()
     if (email === '' || password === '') {
@@ -54,11 +60,10 @@ export function LoginForm() {
         })
         .then((resp) => {
           if(resp.status === 200){
-            localStorage.setItem('token', resp.data.access_token);
+            Cookies.set('accessToken', resp.data.access_token, { expires: 3 });
+            setisLoggedIn(true);
             navigate('/servicios');
           }
-          // history.push('/servicios');
-          // window.location.href = '/servicios'
         })
         .catch((error) => {
           setShowAlertEmail(true);

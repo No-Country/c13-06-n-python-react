@@ -3,9 +3,9 @@ import logo from '../assets/Logo1.png'
 import logoSVG from '../assets/logo.svg'
 import { Avatar } from './Avatar';
 
-export function Navbar2() {
+export function Navbar2({ isLoggedIn = false}) {
     const [showMenu, setShowMenu] = React.useState(false);
-    const token = localStorage.getItem('token');
+    const token = isLoggedIn;
     return (
       <React.Fragment>
         <div className='flex items-center  bg-destacar mb-[6rem] h-[5.625rem] w-full ml-20 mr-[rem] relative justify-end'>

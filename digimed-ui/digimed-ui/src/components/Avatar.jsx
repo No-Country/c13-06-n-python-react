@@ -1,5 +1,6 @@
 import React from 'react';
 import avatar from '../assets/avatar.svg'
+import Cookies from 'js-cookie';
 export function Avatar(props){
 	const [showMenu, setShowMenu] = React.useState(false);
 	const handleShowMenu = () => {
@@ -24,7 +25,7 @@ export function Avatar(props){
 					<div className="py-1" role="none">
 						<div className="divide-y divide-blue-200">
 							<a href="#" className="text-gray-700 hover:text-blue-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-0">Perfil</a>
-							<a href="/" onClick={()=> localStorage.removeItem('token')} className="text-gray-700 hover:text-blue-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-1">Salir</a>
+							<a href="/" className="text-gray-700 hover:text-blue-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-1">Salir</a>
 						</div>
 					</div>
 				</div>
