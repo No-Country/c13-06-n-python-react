@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 // import Alert from '@mui/material/Alert';
 import { Link } from 'react-router-dom';
-// import hero from '../assets/image_hero.png';
-import Image from '../components/image';
+//import hero from '../assets/image_hero.png';
+import Image from '../components/Image';
 import axios from 'axios';
 // import { useHistory } from 'react-router-dom';
 
@@ -15,12 +15,8 @@ function Registro() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setconfirmPassword] = useState('');
-
-  // const goBack = () => {
-  //   setShowLoginForm(true);
-  //   setShowRegistro(false);
-  // };
-  /* console.log(email, password) */
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState(''); 
 
   const handlefullName = (e) => {
     setFullName(e.target.value);
@@ -69,8 +65,8 @@ function Registro() {
       password !== confirmPassword) {
       console.log('Las contraseñas no coinciden.');
     } else {
-      console.log('fullName:', fullName, 'documentType:', documentType, 'documentNumber:', documentNumber, 'confirmPassword:', confirmPassword );
-      axios.post('http://ec2-107-22-50-137.compute-1.amazonaws.com:5000/api/v1/register', {
+      console.log('fullName:', email, 'Contraseña:', password)
+      axios.post(`${import.meta.env.VITE_API_URL}:${import.meta.env.VITE_API_PORT}/api/v1/register`, {
         "name":fullName.split(' ')[0],
         "last_name":fullName.split(' ')[1],
         "dni":documentNumber,

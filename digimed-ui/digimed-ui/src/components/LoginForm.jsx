@@ -1,7 +1,8 @@
 // import Alert from '@mui/material/Alert';
 import Registro from '../Pages/Registro';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { Notification } from './Notification';
 import axios from 'axios';
 import { HamburgerMenu } from './HamburgerMenu';
 // import { useHistory } from 'react-router-dom';
@@ -24,7 +25,6 @@ export function LoginForm() {
   const handlepassword = (e) => {
     setPassword(e.target.value);
   };
-
   /* console.log(email, password) */
 
   // const registrarUser = () => {
@@ -40,7 +40,7 @@ export function LoginForm() {
   const timeOutUser = () => {
     setTimeout(() => {
       setShowAlertEmail(false);
-    }, 2000);
+    }, 5000);
   };
   const enter = (e) => {
     e.preventDefault();
@@ -49,21 +49,20 @@ export function LoginForm() {
       timeOutAlert();
       console.log('Completa los campos')
     } else {
-      console.log('usuario entro al else')
-      axios.post('http://ec2-107-22-50-137.compute-1.amazonaws.com:5000/api/v1/login', {
+      axios.post(`${import.meta.env.VITE_API_URL}:${import.meta.env.VITE_API_PORT}/api/v1/login`, {
           email: email,
           password: password,
         })
         .then((resp) => {
-          console.log('usuario logeado')
-          // setIsAllowed(true);
-          navigate('/servicios');
+          if(resp.status === 200){
+            localStorage.setItem('token', resp.data.access_token);
+            navigate('/servicios');
+          }
           // history.push('/servicios');
           // window.location.href = '/servicios'
         })
         .catch((error) => {
           setShowAlertEmail(true);
-          timeOutUser();
         });
     }
   };
@@ -71,10 +70,6 @@ export function LoginForm() {
 
   return (
     <div className='flex flex-col '>
-      {showAlert && alert('Por favor, completa todos los campos.')}
-      {ShowAlertEmail &&
-        alert('Email no existe, por favor verifica e ingresa nuevamente')}
-
       {showLoginForm ? (
         <div>
           <div className='hidden  md:block'>
@@ -115,17 +110,20 @@ export function LoginForm() {
             <div className=' mx-auto md:mx-1 border border-zinc-500 px-3 py-4 bg-celeste text-white gap-2 rounded-lg w-[18rem] md:w-[25rem] flex items-center  justify-center'>
               {/* <Search className="mx-1h-5 w-5 text-zinc-500" /> */}
 
-              <button
-                onClick={(e) => {
-                  enter(e);
-                }}
-              >
-                Ingresar
-              </button>
-               
+          
+
+            <button onClick={enter} className={(email && password) ? 'mx-1 border border-zinc-500 px-3 py-4 bg-celeste text-white gap-2 rounded-lg w-[25rem] flex items-center justify-center' : 'mx-1 border border-zinc-500 px-3 py-4 bg-blue-500 text-white font-bold rounded-lg w-[25rem] flex items-center justify-center opacity-50 cursor-not-allowed'} disabled={(email && password) ? false : true}>
+              Ingresar
+            </button>
+            {ShowAlertEmail ? <Notification title="Error" message="Usuario o contrasenha invalidos"/> : null}
               
             </div>
-            <div className='md:text-2xl mt-10 md:mt-1 md:mb-16 flex flex-row gap-1 justify-center'>¿No tiene cuenta? <Link className='text-celeste underline' to='/Registro'> Registrese</Link></div>
+     
+
+
+
+            
+            <div className='text-2xl mb-16 flex flex-row gap-1'>¿No tiene cuenta? <Link className='text-celeste underline' to='/Registro'> Registrese</Link></div>
           </form>
         </div>
       ) : (
