@@ -3,12 +3,12 @@ from .models import User, Patient, Doctor, Medicine, Prescription
 from .db import session
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
-from .schemas import user_schema, users_schema
-from .schemas import patient_schema, patients_schema
+from .schemas import user_schema, users_schema, params_user_schema
+from .schemas import patient_schema, patients_schema, params_patient_schema
 from .schemas import doctor_schema, doctors_schema
 from .schemas import medicine_schema, medicines_schema
 from .schemas import prescription_schema, prescriptions_schema
-from .responses import response, not_found
+from .responses import response, not_found, bad_request
 
 api_v1 = Blueprint('api', __name__, url_prefix='/api/v1')
 
@@ -16,31 +16,26 @@ api_v1 = Blueprint('api', __name__, url_prefix='/api/v1')
 @api_v1.route('/register', methods={'POST'})
 def create_patient():
     
-    name = request.json['name']
-    last_name = request.json['last_name']
-    dni = request.json['dni']
-    member = request.json['member']
-    username = name + ' ' + last_name
-    email = request.json['email']
-    password = request.json['password']
+    json = request.get_json(force=True)
+    error = params_patient_schema.validate(json)
+    if error:
+        return bad_request(error)
     
-    user = session.query(User).filter(User.email == email).first()
+    user = session.query(User).filter(User.email == json['email']).first()
     
     if user is None:
-        new_user = User(username=username, email=email, password=generate_password_hash(password))
+        new_user = User(username=json['name']+' '+json['last_name'], email=json['email'], password=generate_password_hash(json['password']))
         session.add(new_user)
         session.commit()
-        user = session.query(User).filter(User.email==email).first()
-        new_patient = Patient(name=name, last_name=last_name, dni=dni, member=member, user_id=user.id)
+    
+        user = session.query(User).filter(User.email==json['email']).first()
+        new_patient = Patient(name=json['name'], last_name=json['last_name'], dni=json['dni'], member=json['member'], user_id=user.id)
         session.add(new_patient)
         session.commit()
-        message = 'Paciente creado correctamente'
     else:
-        message = 'Ese mail ya esta registrado'
+        return  bad_request('Ese mail ya esta registrado')
 
-    return jsonify({
-        'messages': message
-    })
+    return response(patient_schema.dump(new_patient))
 
 # Realizar el login
 @api_v1.route('/login', methods={'POST'})
