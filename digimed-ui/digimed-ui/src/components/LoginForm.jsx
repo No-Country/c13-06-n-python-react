@@ -1,22 +1,24 @@
 // import Alert from '@mui/material/Alert';
 import Registro from '../Pages/Registro';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Notification } from './Notification';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-// import { useHistory } from 'react-router-dom';
+
 
 export function LoginForm({ setisLoggedIn }) {
-  // const history = useHistory();
+
   const navigate = useNavigate();
-  // const [isAllowed, setIsAllowed] = useState(false)
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [ShowAlertEmail, setShowAlertEmail] = useState(false);
   const [showRegistro, setShowRegistro] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(true);
+  
+  
 
   const handleemail = (e) => {
     setEmail(e.target.value);
@@ -60,8 +62,9 @@ export function LoginForm({ setisLoggedIn }) {
         })
         .then((resp) => {
           if(resp.status === 200){
-            Cookies.set('data', resp.data, { expires: 3 });
+            Cookies.set('data', JSON.stringify(resp.data), { expires: 3 });
             setisLoggedIn(true);
+            
             navigate('/servicios');
           }
         })
@@ -124,8 +127,6 @@ export function LoginForm({ setisLoggedIn }) {
           handlepassword={handlepassword}
         />
       )}
-
-      {/* <p>No tiene cuenta? <a href="#">Registrese</a></p> */}
     </div>
   );
 }

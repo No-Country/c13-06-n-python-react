@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import Alert from '@mui/material/Alert';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 //import hero from '../assets/image_hero.png';
 import Image from '../components/Image';
 import axios from 'axios';
@@ -79,6 +79,7 @@ function Registro() {
         "password": password
       }).then((resp) => {
         console.log('Usuario registrado con exito');
+        navigate('/')
         // history.push('/');
         //window.location.href = '/';
       }).catch((error) => {
