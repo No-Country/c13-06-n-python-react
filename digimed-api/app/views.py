@@ -4,7 +4,11 @@ from .db import session
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from .schemas import user_schema, users_schema
-from .responses import response
+from .schemas import patient_schema, patients_schema
+from .schemas import doctor_schema, doctors_schema
+from .schemas import medicine_schema, medicines_schema
+from .schemas import prescription_schema, prescriptions_schema
+from .responses import response, not_found
 
 api_v1 = Blueprint('api', __name__, url_prefix='/api/v1')
 
@@ -72,7 +76,10 @@ def login():
 @jwt_required()
 def get_user(id):
     user = session.query(User).filter(User.id==id).first()
-    print(user)
+
+    if user is None:
+        return not_found()
+    
     return response(user_schema.dump(user))
     
 #Mostrar todos los pacientes
@@ -80,25 +87,18 @@ def get_user(id):
 @jwt_required()
 def get_patients():
     patients = session.query(Patient).all()
-    #convert patients to json array
-    patients_json = []
-    for patient in patients:
-        patient_data = patient.__dict__
-        del patient_data['_sa_instance_state']
-        patients_json.append(patient_data)
-    #return patients as json
-    return jsonify(patients_json)
+    return response(patients_schema.dump(patients))
 
 #Mostrar pacientes por id
 @api_v1.route('/patients/<int:id>', methods={'GET'})
 @jwt_required()
 def get_patient_by_id(id):
     patient = session.query(Patient).filter(Patient.id == id).first()
-    #convert patient to json
-    patient_json = patient.__dict__
-    del patient_json['_sa_instance_state']
-    #return patient as json
-    return jsonify(patient_json)
+
+    if patient is None:
+        return not_found()
+    
+    return response(patient_schema.dump(patient))
 
 #Registra un nuevo Doctor
 @api_v1.route('/register/doctor', methods={'POST'})
@@ -151,25 +151,36 @@ def create_medicine():
 @jwt_required()
 def get_doctors():
     doctors = session.query(Doctor).all()
-    doctors_json = [{'id': doctor.id, 
-                     'name': doctor.name, 
-                     'last_name': doctor.last_name, 
-                     'registration': doctor.registration, 
-                     'speciality': doctor.speciality, 
-                     'active': doctor.active, 
-                     'user_id':doctor.user_id} for doctor in doctors]
-    return jsonify(doctors=doctors_json)
+    return response(doctors_schema.dump(doctors))
+
+#Mostrar doctores por id
+@api_v1.route('/doctors/<int:id>', methods={'GET'})
+@jwt_required()
+def get_doctor_by_id(id):
+    doctor = session.query(Doctor).filter(Doctor.id == id).first()
+
+    if doctor is None:
+        return not_found()
+    
+    return response(doctor_schema.dump(doctor))
     
 #Mostrar medicinas
 @api_v1.route('/medicines', methods={'GET'})
 @jwt_required()
 def get_medicines():
     medicines = session.query(Medicine).all()
-    medicines_json = [{'id': medicine.id, 
-                       'medicine': medicine.medicine, 
-                       'tradename': medicine.tradename,
-                       'presentation': medicine.presentation} for medicine in medicines]
-    return jsonify(medicines=medicines_json)
+    return response(medicines_schema.dump(medicines))
+
+#Mostrar pacientes por id
+@api_v1.route('/medicines/<int:id>', methods={'GET'})
+@jwt_required()
+def get_medicine_by_id(id):
+    medicine = session.query(Medicine).filter(Medicine.id == id).first()
+
+    if medicine is None:
+        return not_found()
+    
+    return response(medicine_schema.dump(medicine))
 
 #Crear nueva Receta
 @api_v1.route('/prescription', methods={'POST'})
@@ -188,3 +199,25 @@ def create_prescription():
     return jsonify({
         'message':'Receta creada corectamente'
     })
+
+#Mostrar receta por paciente
+@api_v1.route('/prescription/patient/<int:id>', methods={'GET'})
+@jwt_required()
+def get_prescription_by_patient_id(id):
+    prescriptions = session.query(Prescription).filter(Prescription.patient_id == id)
+
+    if prescriptions is None:
+        return not_found()
+    
+    return response(prescriptions_schema.dump(prescriptions))
+
+#Mostrar receta por id
+@api_v1.route('/prescription/<int:id>', methods={'GET'})
+@jwt_required()
+def get_prescription_by_id(id):
+    prescription = session.query(Prescription).filter(Prescription.id == id).first()
+
+    if prescription is None:
+        return not_found()
+    
+    return response(prescription_schema.dump(prescription))
