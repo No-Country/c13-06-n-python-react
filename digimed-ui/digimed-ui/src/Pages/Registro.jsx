@@ -69,7 +69,8 @@ function Registro() {
       password !== confirmPassword) {
       console.log('Las contraseñas no coinciden.');
     } else {
-      axios.post('http://127.0.0.1:5000/api/v1/register', {
+      console.log('fullName:', fullName, 'documentType:', documentType, 'documentNumber:', documentNumber, 'confirmPassword:', confirmPassword );
+      axios.post('http://ec2-107-22-50-137.compute-1.amazonaws.com:5000/api/v1/register', {
         "name":fullName.split(' ')[0],
         "last_name":fullName.split(' ')[1],
         "dni":documentNumber,
