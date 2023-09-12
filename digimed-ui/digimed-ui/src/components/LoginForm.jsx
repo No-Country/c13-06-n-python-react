@@ -1,11 +1,13 @@
 // import Alert from '@mui/material/Alert';
 import Registro from '../Pages/Registro';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { Notification } from './Notification';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 // import { useHistory } from 'react-router-dom';
 
-export function LoginForm() {
+export function LoginForm({ setisLoggedIn }) {
   // const history = useHistory();
   const navigate = useNavigate();
   // const [isAllowed, setIsAllowed] = useState(false)
@@ -23,7 +25,6 @@ export function LoginForm() {
   const handlepassword = (e) => {
     setPassword(e.target.value);
   };
-
   /* console.log(email, password) */
 
   // const registrarUser = () => {
@@ -39,28 +40,33 @@ export function LoginForm() {
   const timeOutUser = () => {
     setTimeout(() => {
       setShowAlertEmail(false);
-    }, 2000);
+    }, 5000);
   };
+
+  if(Cookies.get('data')){
+    Cookies.remove('data');
+  }
+
   const enter = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (email === '' || password === '') {
       setShowAlert(true);
       timeOutAlert();
       console.log('Completa los campos')
     } else {
-      console.log('usuario entro al else')
-      axios.post('http://ec2-107-22-50-137.compute-1.amazonaws.com:5000/api/v1/login', {
+      axios.post(`${import.meta.env.VITE_API_URL}:${import.meta.env.VITE_API_PORT}/api/v1/login`, {
           email: email,
           password: password,
         })
         .then((resp) => {
-          console.log('usuario logeado')
-          // setIsAllowed(true);
-          navigate('/servicios');
+          if(resp.status === 200){
+            Cookies.set('data', resp.data, { expires: 3 });
+            setisLoggedIn(true);
+            navigate('/servicios');
+          }
         })
         .catch((error) => {
           setShowAlertEmail(true);
-          timeOutUser();
         });
     }
   };
@@ -68,10 +74,6 @@ export function LoginForm() {
 
   return (
     <div className='flex flex-col '>
-      {showAlert && alert('Por favor, completa todos los campos.')}
-      {ShowAlertEmail &&
-        alert('Email no existe, por favor verifica e ingresa nuevamente')}
-
       {showLoginForm ? (
         <div>
           <p className='font-bold text-azul-oscuro text-3xl mb-8'>
@@ -93,7 +95,7 @@ export function LoginForm() {
               />
             </div>
             <div className='  mx-1 border-2  px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center'>
-              <input
+              <input 
                 onChange={handlepassword}
                 type='password'
                 name='password'
@@ -103,17 +105,12 @@ export function LoginForm() {
               />
             </div>
 
-            <div className=' mx-1 border border-zinc-500 px-3 py-4 bg-celeste text-white gap-2 rounded-lg w-[25rem] flex items-center  justify-center'>
               {/* <Search className="mx-1h-5 w-5 text-zinc-500" /> */}
 
-              <button
-                onClick={(e) => {
-                  enter(e);
-                }}
-              >
-                Ingresar
-              </button>
-            </div>
+            <button onClick={enter} className={(email && password) ? 'mx-1 border border-zinc-500 px-3 py-4 bg-celeste text-white gap-2 rounded-lg w-[25rem] flex items-center justify-center' : 'mx-1 border border-zinc-500 px-3 py-4 bg-blue-500 text-white font-bold rounded-lg w-[25rem] flex items-center justify-center opacity-50 cursor-not-allowed'} disabled={(email && password) ? false : true}>
+              Ingresar
+            </button>
+            {ShowAlertEmail ? <Notification title="Error" message="Usuario o contrasenha invalidos"/> : null}
             <div className='text-2xl mb-16 flex flex-row gap-1'>¿No tiene cuenta? <Link className='text-celeste underline' to='/Registro'> Registrese</Link></div>
           </form>
         </div>
