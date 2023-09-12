@@ -63,7 +63,7 @@ def login():
         return jsonify({
         'messages': message
 
-        })
+        }),401
 #Obtemer usuario por id
 @api_v1.route('/user/<id>', methods={'GET'})
 @jwt_required()

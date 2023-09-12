@@ -44,7 +44,7 @@ class Doctor(Base):
     name = Column(String(70), nullable=True)
     last_name = Column(String(100), nullable=False)
     registration = Column(String(100), nullable=False)
-    speciality = Column(String(), nullable=False)
+    speciality = Column(String(100), nullable=False)
     active = Column(Boolean(), default=False)
     user_id = Column(Integer(), ForeignKey('users.id'))
 
