@@ -7,6 +7,7 @@ import { Login } from './Pages/Login';
 import Registro from './Pages/Registro';
 import Servicios from './Pages/Servicios';
 import Solicitudes from './Pages/Solicitudes';
+import About from './Pages/About';
 import Protected from './components/Protected';
 
 function App() {
@@ -26,6 +27,13 @@ function App() {
             element = {
               <Layout>
                 <Registro/>
+              </Layout>
+            }
+          />
+          <Route path="/about"
+            element = {
+              <Layout>
+                <About/>
               </Layout>
             }
           />

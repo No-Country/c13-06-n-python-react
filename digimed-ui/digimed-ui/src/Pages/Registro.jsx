@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-// import Alert from '@mui/material/Alert';
 import { Link, useNavigate } from 'react-router-dom';
-//import hero from '../assets/image_hero.png';
 import Image from '../components/Image';
 import axios from 'axios';
+import Alert from '../components/Alert';
 
 
 function Registro() {
   const navigate = useNavigate();
+  const [alert, setAlert] = useState(null);
 
   const [fullName, setFullName] = useState('');
   const [documentType, setDocumentType] = useState('');
@@ -16,12 +16,7 @@ function Registro() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setconfirmPassword] = useState('');
 
-  // const goBack = () => {
-  //   setShowLoginForm(true);
-  //   setShowRegistro(false);
-  // };
-  /* console.log(email, password) */
-
+ 
   const handlefullName = (e) => {
     setFullName(e.target.value);
   };
@@ -57,6 +52,7 @@ function Registro() {
       documentNumber === ''
     ) {     
       console.log('Por favor, completa todos los campos.');
+      setAlert({ message: 'Por favor, completa todos los campos.', type: 'error' });
     } else if 
     
     (email &&
@@ -68,6 +64,7 @@ function Registro() {
 
       password !== confirmPassword) {
       console.log('Las contraseñas no coinciden.');
+      setAlert({ message: 'Las contraseñas no coinciden.', type: 'error' });
     } else {
       console.log('fullName:', fullName, 'documentType:', documentType, 'documentNumber:', documentNumber, 'confirmPassword:', confirmPassword );
       axios.post('http://ec2-107-22-50-137.compute-1.amazonaws.com:5000/api/v1/register', {
@@ -79,10 +76,11 @@ function Registro() {
         "password": password
       }).then((resp) => {
         console.log('Usuario registrado con exito');
+        setAlert({ message: 'Usuario registrado con éxito', type: 'success' });
         navigate('/')
-        // history.push('/');
-        //window.location.href = '/';
+
       }).catch((error) => {
+        setAlert({ message: 'Error al registrar usuario', type: 'error' });
         console.log('error');
       });
     }
@@ -163,6 +161,7 @@ function Registro() {
                   onChange={handleconfirmPassword}
                 />
               </div>
+                {alert && <Alert message={alert.message} type={alert.type} />}
               <div className=' mx-1 border border-zinc-500 px-3 py-4 bg-celeste text-white gap-2 rounded-lg w-[25rem] flex items-center  justify-center'>
                 <button
                   onClick={(e) => {
@@ -177,7 +176,6 @@ function Registro() {
           </div>
         </div>
       </div>
-      {/* <RegistroForm /> */}
     </div>
   );
 }
