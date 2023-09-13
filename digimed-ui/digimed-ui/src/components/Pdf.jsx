@@ -59,9 +59,6 @@ const Pdf =({data})=>{
       <View style={{ textAlign: 'center', marginBottom: '20px' }}>
         <Text>N° Afiliado: {data.afiliado}</Text>
       </View>
-      <View style={{ textAlign: 'center', marginBottom: '20px' }}>
-        <Text>Es laboral?: {data.selectedOption}</Text>
-      </View>
       <View style={{ textAlign: 'center', marginBottom: '5px' }}>
         <Text>Formua Medica</Text>
       </View>

@@ -1,5 +1,4 @@
 import './App.css';
-// import Home from "./Pages/Home";
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from './layout/Layout';
@@ -9,6 +8,8 @@ import Servicios from './Pages/Servicios';
 import Solicitudes from './Pages/Solicitudes';
 import About from './Pages/About';
 import Protected from './components/Protected';
+import Home from './Pages/Home';
+import Contacto from './Pages/Contacto';
 
 function App() {
   const [isLoggedIn, setisLoggedIn] = useState(null);
@@ -26,14 +27,28 @@ function App() {
           <Route path="/registro"
             element = {
               <Layout>
-                <Registro/>
+                <Registro />
               </Layout>
             }
           />
-          <Route path="/about"
+           <Route path="/about"
             element = {
               <Layout>
                 <About/>
+              </Layout>
+            }
+          />
+           <Route path="/home"
+            element = {
+              <Layout>
+                <Home/>
+              </Layout>
+            }
+          />
+          <Route path="/contacto"
+            element = {
+              <Layout>
+                <Contacto/>
               </Layout>
             }
           />

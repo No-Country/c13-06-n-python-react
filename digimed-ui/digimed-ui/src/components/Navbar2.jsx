@@ -13,10 +13,10 @@ export function Navbar2({ isLoggedIn = false}) {
             <img src={logoSVG} alt="" className="" />
           </div>
           <div className={showMenu ? "flex gap-[2.375rem] justify-end  items-center mr-6" : "flex gap-[2.375rem] justify-end  items-center mr-24" }>
-            <a href="/#">Home</a>
-            <a href="#">Nosotros</a>
+            <a href="/home">Home</a>
+            <a href="about">Quienes somos</a>
             <a href="/servicios">Servicios</a>
-            <a href="#">Contacto</a>
+            <a href="contacto">Contacto</a>
           </div>
           { token ? (
             <div className='flex mx-2'>
