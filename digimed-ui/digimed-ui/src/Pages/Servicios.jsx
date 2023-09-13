@@ -11,7 +11,7 @@ function Servicios() {
       </p>
     <div className="w-266 h-100 ml-16 mr-16 flex-shrink-0 border rounded-lg bg-destacar 
       shadow-md p-8 flex items-center justify-center mb-24" >
-      <div className="flex gap-16">
+      <div className="flex flex-col md:flex-row gap-16">
         <div className="flex flex-col">
         <div className="w-96 h-64 border rounded-lg bg-fondo text-center flex-col justify-center" >
           <div className="flex justify-center items-center"> 

@@ -78,14 +78,14 @@ function Solicitudes() {
   <p className="text-azul-claro text-center font-roboto font-bold text-2xl mb-16">
     Solicitud de receta
   </p>
-  <div className="flex items-center justify-center space-x-8">
+  <div className="flex  items-center justify-center space-x-8">
     <div className="w-10/12 h-100 ml-16 mr-16 flex-shrink-0 border rounded-lg bg-destacar shadow-md p-8 flex items-center justify-center mb-16">
       <div className="flex flex-col w-full">
        
-        <div className='flex'>
+        <div className='flex flex-col md:flex-row'>
         <div className="flex mb-4">
           <select
-            className="mx-1 px-3 py-4 gap-2  mr-14 w-[25rem]"
+            className="mx-1 px-3 py-4 gap-2  mr-14 w-full md:w-[25rem]"
             value={selectedCobertura}
             onChange={handleCoberturaChange}
           >
@@ -98,7 +98,7 @@ function Solicitudes() {
         
         <div className="flex items-center mb-4">
           <select
-            className="mx-1 px-3 py-4 gap-2 w-[25rem]"
+            className="mx-1 px-3 py-4 gap-2 w-full md:w-[25rem]"
             value={selectedPlan}
             onChange={handlePlanChange}
             >
@@ -112,14 +112,14 @@ function Solicitudes() {
        
         <div className="flex items-center mb-4">
         <input
-          className="mx-1 px-3 py-4 mr-14 w-[25rem]"
+          className="mx-1 px-3 py-4 mr-14 w-full md:w-[25rem]"
           placeholder="N° Afiliado"
           type="number"
           name="afiliado"
           value={afiliado}
           onChange={handleAfiliadoChange} // Cambio aquí
         />
-        <div className="flex items-center mb-4">
+        {/* <div className="flex items-center mb-4">
           <h1 className="mr-2">¿Es laboral?</h1>
           <div 
             className={`option-circle mr-2 ${selectedOption === 'Si' ?  'selected' : ''}`}
@@ -135,7 +135,7 @@ function Solicitudes() {
           </div>
           {selectedOption && (
             <p className="font-bold text-blue-800">Seleccionaste {selectedOption}</p> )}    
-        </div>
+        </div> */}
             </div>
          
         <div className="flex items-center justify-between mb-4">
