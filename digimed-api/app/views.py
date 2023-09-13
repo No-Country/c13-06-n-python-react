@@ -3,11 +3,11 @@ from .models import User, Patient, Doctor, Medicine, Prescription
 from .db import session
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
-from .schemas import user_schema, users_schema, params_user_schema
+from .schemas import user_schema, users_schema
 from .schemas import patient_schema, patients_schema, params_patient_schema
-from .schemas import doctor_schema, doctors_schema
-from .schemas import medicine_schema, medicines_schema
-from .schemas import prescription_schema, prescriptions_schema
+from .schemas import doctor_schema, doctors_schema, params_doctor_schema
+from .schemas import medicine_schema, medicines_schema, params_medicine_schema
+from .schemas import prescription_schema, prescriptions_schema, params_prescription_schema
 from .responses import response, not_found, bad_request
 
 api_v1 = Blueprint('api', __name__, url_prefix='/api/v1')
@@ -98,48 +98,42 @@ def get_patient_by_id(id):
 #Registra un nuevo Doctor
 @api_v1.route('/register/doctor', methods={'POST'})
 def create_doctor():
+    json = request.get_json(force=True)
+    error = params_doctor_schema.validate(json)
     
-    name = request.json['name']
-    last_name = request.json['last_name']
-    registration = request.json['registration']
-    speciality = request.json['speciality']
-    active = request.json['active']
-    username = name + ' ' + last_name
-    email = request.json['email']
-    password = request.json['password']
+    if error:
+        return bad_request(error)
     
-    user = session.query(User).filter(User.email == email).first()
+    user = session.query(User).filter(User.email == json['email']).first()
     
     if user is None:
-        new_user = User(username=username, email=email, password=generate_password_hash(password))
+        new_user = User(username=json['name']+' '+json['last_name'], email=json['email'], password=generate_password_hash(json['password']))
         session.add(new_user)
         session.commit()
-        user = session.query(User).filter(User.email==email).first()
-        new_doctor = Doctor(name=name, last_name=last_name, registration=registration, speciality=speciality, active=active, user_id=user.id)
+
+        user = session.query(User).filter(User.email==json['email']).first()
+        new_doctor = Doctor(name=json['name'], last_name=json['last_name'], registration=json['registration'], speciality=json['speciality'], active=json['active'], user_id=user.id)
         session.add(new_doctor)
         session.commit()
-        message = 'Doctor creado correctamente'
+        
     else:
-        message = 'Ese mail ya esta registrado'
+        return bad_request('Ese mail ya esta registrado') 
 
-    return jsonify({
-        'messages': message
-    })
+    return response(doctor_schema.dump(new_doctor))
 
 #Ingresar una nueva medicina
 @api_v1.route('/register/medicine', methods={'POST'})
 @jwt_required()
 def create_medicine():
-    medicine = request.json['medicine']
-    tradename = request.json['tradename']
-    presentation = request.json['presentation']
+    json = request.get_json(force=True)
+    error = params_medicine_schema.validate(json)
+    if error:
+        return bad_request(error)
 
-    new_medicine = Medicine(medicine=medicine, tradename=tradename, presentation=presentation)
+    new_medicine = Medicine(medicine=json['medicine'], tradename=json['tradename'], presentation=json['presentation'])
     session.add(new_medicine)
     session.commit()
-    return jsonify({
-        'messages': 'Medicamento creado correctamente'
-    })
+    return response(medicine_schema.dump(new_medicine))
 
 #Mostrar Doctores
 @api_v1.route('/doctors', methods={'GET'})
@@ -170,6 +164,7 @@ def get_medicines():
 @api_v1.route('/medicines/<int:id>', methods={'GET'})
 @jwt_required()
 def get_medicine_by_id(id):
+    
     medicine = session.query(Medicine).filter(Medicine.id == id).first()
 
     if medicine is None:
@@ -182,18 +177,15 @@ def get_medicine_by_id(id):
 @jwt_required()
 def create_prescription():
     
-    prescription_date = request.json['prescription_date']
-    signature = True
-    patient_id = get_jwt_identity()
-    doctor_id = request.json['doctor_id']
-    medicine_id = request.json['medicine_id']
+    json = request.get_json(force=True)
+    error = params_prescription_schema.validate(json)
+    if error:
+        return response(error)
 
-    new_prescription = Prescription(prescription_date=prescription_date, patient_id=patient_id, doctor_id=doctor_id, medicine_id=medicine_id, signature=signature)
+    new_prescription = Prescription(prescription_date=json['prescription_date'], patient_id=json['patient_id'], doctor_id=json['doctor_id'], medicine_id=json['medicine_id'], signature=json['signature'])
     session.add(new_prescription)
     session.commit()
-    return jsonify({
-        'message':'Receta creada corectamente'
-    })
+    return response(prescription_schema.dump(new_prescription))
 
 #Mostrar receta por paciente
 @api_v1.route('/prescription/patient/<int:id>', methods={'GET'})
