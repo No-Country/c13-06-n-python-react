@@ -1,17 +1,11 @@
-import logo from "../assets/Logo1.png";
+
 import logoSVG from "../assets/logo.svg";
-import { HamburgerMenu } from "./HamburgerMenu";
 import menuLogo from "../assets/iconamoon_menu-burger-horizontal-bold.svg"
-import React ,{ useState } from "react";
+import { useState } from "react";
 import { Avatar } from "./Avatar";
 
 
-// export function Navbar2() {
-// const [openMenu , setOpenMenu] = useState(false) 
 
-
-
-//  New navBar
 export function Navbar2({ isLoggedIn = false}) {
   const [openMenu , setOpenMenu] = useState(false)
 
@@ -21,34 +15,7 @@ export function Navbar2({ isLoggedIn = false}) {
     console.log(openMenu ? 'open' : 'close')
   }
 
-    
-    const token = true;
-    // const token = isLoggedIn;
-//     return (
-//       <React.Fragment>
-//         <div className='flex items-center  bg-destacar mb-[6rem] h-[5.625rem] w-full ml-20 mr-[rem] relative justify-end'>
-//           {/* <div className="absolute -left-20 -top-4"> */}
-//           <div className=" w-[6.2rem] h-[6.2rem] mt-10 md:w-[10.3rem] md:h-[10.3rem] md:absolute lg:-left-20 lg:-top-4 md:-mt-1 md:ml-10">
-//             <img src={logoSVG} alt="" className="" />
-//           </div>
-//           <div className={showMenu ? "flex gap-[2.375rem] justify-end  items-center mr-6" : "flex gap-[2.375rem] justify-end  items-center mr-24" }>
-//             <a href="/home">Home</a>
-//             <a href="about">Quienes somos</a>
-//             <a href="/servicios">Servicios</a>
-//             <a href="contacto">Contacto</a>
-//           </div>
-//           { token ? (
-//             <div className='flex mx-2'>
-//               <Avatar  />
-//             </div>
-//           ): null}
-//         </div>
-//       </React.Fragment>
-//     );
-// }
-
-
-
+    const token = isLoggedIn;
 
   return (
     <div className="  flex items-center bg-mobile-bg md:bg-destacar mb-[6rem] h-[5.625rem] w-full md:ml-20 mr-[rem] md:relative justify-between md:justify-end">
@@ -92,39 +59,3 @@ export function Navbar2({ isLoggedIn = false}) {
 
 
 
-
-
-
-
-
-
-
-// import React from 'react';
-// import logo from '../assets/Logo1.png'
-// import logoSVG from '../assets/logo.svg'
-// import { Avatar } from './Avatar';
-
-// export function Navbar2() {
-//     const [showMenu, setShowMenu] = React.useState(false);
-//     const token = localStorage.getItem('token');
-//     return (
-//       <React.Fragment>
-//         <div className='flex items-center  bg-destacar mb-[6rem] h-[5.625rem] w-full ml-20 mr-[rem] relative justify-end'>
-//           <div className="absolute -left-20 -top-4">
-//             <img src={logoSVG} alt="" className="" />
-//           </div>
-//           <div className={showMenu ? "flex gap-[2.375rem] justify-end  items-center mr-6" : "flex gap-[2.375rem] justify-end  items-center mr-24" }>
-//             <a href="/#">Home</a>
-//             <a href="#">Nosotros</a>
-//             <a href="/servicios">Servicios</a>
-//             <a href="#">Contacto</a>
-//           </div>
-//           { token ? (
-//             <div className='flex mx-2'>
-//               <Avatar />
-//             </div>
-//           ): null}
-//         </div>
-//       </React.Fragment>
-//     );
-// }
