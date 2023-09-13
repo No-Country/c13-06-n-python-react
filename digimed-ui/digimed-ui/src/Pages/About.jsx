@@ -1,6 +1,6 @@
 import React from "react";
 import Elvis from '../assets/Elvis.png';
-import Antoni from '../assets/Antoni.jpg';
+import Antoni from '../assets/Antoni.png';
 import Ana from '../assets/Ana.png';
 import Andres from '../assets/Andres.png';
 import Javier from '../assets/Javier.png';
