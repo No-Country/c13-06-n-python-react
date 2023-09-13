@@ -123,7 +123,12 @@ export function LoginForm() {
 
 
             
-            <div className='text-2xl mb-16 flex flex-row gap-1'>¿No tiene cuenta? <Link className='text-celeste underline' to='/Registro'> Registrese</Link></div>
+            <div className='mt-10 md:mt-1 md:text-2xl mb-16 flex flex-row gap-1 justify-center'>
+                ¿No tiene cuenta? 
+              <Link className='text-celeste underline' to='/Registro'> 
+                 Registrese
+              </Link>
+            </div>
           </form>
         </div>
       ) : (

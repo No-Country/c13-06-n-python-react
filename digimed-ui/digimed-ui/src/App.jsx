@@ -16,7 +16,7 @@ function App() {
 
 
   return (
-   <div className="App">
+   <div className="App bg-destacar md:bg-white h-screen max-w-max mx-auto">
       <BrowserRouter>
         <Routes>
         <Route path="/" element = {<Layout><Login/></Layout>} />

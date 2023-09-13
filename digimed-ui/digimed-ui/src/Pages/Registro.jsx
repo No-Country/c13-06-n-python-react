@@ -89,9 +89,9 @@ function Registro() {
             Aprovechamos la tecnología para hacer la vida más fácil.
           </p>
         </div>
-        <div className='flex justify-center items-center h-screen'>
+        <div className='flex justify-center  h-screen'>
           <div className='flex flex-col  '>
-            <p className='font-bold text-azul-oscuro text-3xl mt-28 mb-6'>Registro</p>
+            <p className='font-bold text-azul-oscuro text-3xl  mb-6'>Registro</p>
             <p className='text-2xl mb-8'>Por favor, complete el formulario</p>
             <form action='' className='flex flex-col gap-6'>
               <div className=' mx-1 border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-[25rem] flex items-center '>
@@ -165,7 +165,7 @@ function Registro() {
                   Confirmar Registro
                 </button>
                    </div>
-                   <div className='text-2xl mb-16 flex flex-row gap-1'>volver al  <Link className='text-celeste underline' to='/'> Login</Link></div>
+                   <div className='mt-10 md:mt-1 md:text-2xl mb-16 flex flex-row gap-1 justify-center'>volver al  <Link className='text-celeste underline' to='/'> Login</Link></div>
             </form>
           </div>
         </div>
