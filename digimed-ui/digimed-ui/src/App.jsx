@@ -54,8 +54,8 @@ function App() {
           />
           <Route path="/servicios" 
             element = {
-              <Protected isLoggedIn={isLoggedIn}>
-                <Layout isLoggedIn={isLoggedIn}>
+              <Protected isLoggedIn={true}>
+                <Layout isLoggedIn={true}>
                   <Servicios/>
                 </Layout>
               </Protected>
@@ -63,8 +63,8 @@ function App() {
           />
           <Route path="/solicitudes"
             element = {
-              <Protected isLoggedIn={isLoggedIn}>
-                <Layout isLoggedIn={isLoggedIn}>
+              <Protected isLoggedIn={true}>
+                <Layout isLoggedIn={true}>
                   <Solicitudes/>
                 </Layout>
               </Protected>

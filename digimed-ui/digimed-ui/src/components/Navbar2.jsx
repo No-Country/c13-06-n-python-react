@@ -2,25 +2,33 @@ import logo from "../assets/Logo1.png";
 import logoSVG from "../assets/logo.svg";
 import { HamburgerMenu } from "./HamburgerMenu";
 import menuLogo from "../assets/iconamoon_menu-burger-horizontal-bold.svg"
-import { useState } from "react";
+import React ,{ useState } from "react";
+import { Avatar } from "./Avatar";
 
 
-export function Navbar2() {
-const [openMenu , setOpenMenu] = useState(false) 
-
-const toggleMenu = () => {
-  setOpenMenu(!openMenu)
-  console.log(openMenu ? 'open' : 'close')
+// export function Navbar2() {
+// const [openMenu , setOpenMenu] = useState(false) 
 
 
-  //New navBar
-// export function Navbar2({ isLoggedIn = false}) {
-//     const [showMenu, setShowMenu] = React.useState(false);
-//     const token = isLoggedIn;
+
+//  New navBar
+export function Navbar2({ isLoggedIn = false}) {
+  const [openMenu , setOpenMenu] = useState(false)
+
+
+  const toggleMenu = () => {
+    setOpenMenu(!openMenu)
+    console.log(openMenu ? 'open' : 'close')
+  }
+
+    
+    const token = true;
+    // const token = isLoggedIn;
 //     return (
 //       <React.Fragment>
 //         <div className='flex items-center  bg-destacar mb-[6rem] h-[5.625rem] w-full ml-20 mr-[rem] relative justify-end'>
-//           <div className="absolute -left-20 -top-4">
+//           {/* <div className="absolute -left-20 -top-4"> */}
+//           <div className=" w-[6.2rem] h-[6.2rem] mt-10 md:w-[10.3rem] md:h-[10.3rem] md:absolute lg:-left-20 lg:-top-4 md:-mt-1 md:ml-10">
 //             <img src={logoSVG} alt="" className="" />
 //           </div>
 //           <div className={showMenu ? "flex gap-[2.375rem] justify-end  items-center mr-6" : "flex gap-[2.375rem] justify-end  items-center mr-24" }>
@@ -31,13 +39,16 @@ const toggleMenu = () => {
 //           </div>
 //           { token ? (
 //             <div className='flex mx-2'>
-//               <Avatar />
+//               <Avatar  />
 //             </div>
 //           ): null}
 //         </div>
 //       </React.Fragment>
 //     );
 // }
+
+
+
 
   return (
     <div className="  flex items-center bg-mobile-bg md:bg-destacar mb-[6rem] h-[5.625rem] w-full md:ml-20 mr-[rem] md:relative justify-between md:justify-end">
@@ -65,13 +76,28 @@ const toggleMenu = () => {
           </div>  : <img src={menuLogo} alt="" className="w-[1.5rem] h-[1.5rem]"/>
         }
         {/* <HamburgerMenu/> */}
-        </button>
-        
-        
+        </button>  
       </div>
+     
+      { token ? (
+            <div className=' hidden md:flex mx-2'>
+              <Avatar  />
+            </div>
+          ): null}
+        
+      
     </div>
   );
   }
+
+
+
+
+
+
+
+
+
 
 // import React from 'react';
 // import logo from '../assets/Logo1.png'
