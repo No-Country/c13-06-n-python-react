@@ -48,8 +48,8 @@ class Doctor(Base):
     active = Column(Boolean(), default=False)
     user_id = Column(Integer(), ForeignKey('users.id'))
 
-#Override del metodo __repr__ para mostrar los datos del medico
-def __repr__(self):
+    #Override del metodo __repr__ para mostrar los datos del medico
+    def __repr__(self):
         return f"<Doctor(id='{self.id}', name='{self.name}, last_name={self.last_name}, registration={self.registration}, speciality={self.speciality}, active={self.active}, user_id={self.user_id}')>"
 
 # Modelo Medicamento
@@ -61,8 +61,8 @@ class Medicine(Base):
     tradename = Column(String(70))
     presentation = Column(String(70), nullable=False)
     
-#Override del metodo __repr__ para mostrar los datos del medicamento
-def __repr__(self):
+    #Override del metodo __repr__ para mostrar los datos del medicamento
+    def __repr__(self):
         return f"<Medicine(id='{self.id}', medicine='{self.medicine}', tradename='{self.tradename}', presentation='{self.presentation}')>"
 
 # Modelo Recetas
@@ -75,7 +75,8 @@ class Prescription(Base):
     patient_id = Column(Integer(), ForeignKey('patients.id'))
     doctor_id = Column(Integer(), ForeignKey('doctors.id'))
     medicine_id = Column(Integer(), ForeignKey('medicines.id'))
-
-#Override del metodo __repr__ para mostrar los datos de la receta
-def __repr__(self):
+    created_at = Column(DateTime(), default=datetime.now())
+    
+    #Override del metodo __repr__ para mostrar los datos de la receta
+    def __repr__(self):
         return f"<Prescription(id='{self.id}', prescription_date='{self.prescription_date}', signature='{self.signature}', patient_id='{self.patient_id}',doctor_id='{self.doctor_id}', medicine_id='{self.medicine_id}')>"
