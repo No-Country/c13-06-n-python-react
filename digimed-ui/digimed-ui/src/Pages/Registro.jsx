@@ -1,21 +1,22 @@
-import { useState } from "react";
-// import Alert from '@mui/material/Alert';
-import { Link } from "react-router-dom";
-//import hero from '../assets/image_hero.png';
-import Image from "../components/Image";
-import axios from "axios";
-// import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Image from '../components/Image';
+import axios from 'axios';
+import Alert from '../components/Alert';
+
 
 function Registro() {
-  // const history = useHistory();
+  const navigate = useNavigate();
+  const [alert, setAlert] = useState(null);
 
-  const [fullName, setFullName] = useState("");
-  const [documentType, setDocumentType] = useState("");
-  const [documentNumber, setDocumentNumber] = useState("");
-  const [confirmPassword, setconfirmPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [fullName, setFullName] = useState('');
+  const [documentType, setDocumentType] = useState('');
+  const [documentNumber, setDocumentNumber] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setconfirmPassword] = useState('');
 
+ 
   const handlefullName = (e) => {
     setFullName(e.target.value);
   };
@@ -38,53 +39,50 @@ function Registro() {
     setPassword(e.target.value);
   };
 
-  // console.log('fullName:', fullName, 'password:', password, 'email:',
-  //     email, 'documentType:', documentType, 'documentNumber:', documentNumber, 'confirmPassword:', confirmPassword );
+  console.log('fullName:', fullName, 'password:', password, 'email:', 
+      email, 'documentType:', documentType, 'documentNumber:', documentNumber, 'confirmPassword:', confirmPassword );
   const handleRegistration = (e) => {
     e.preventDefault();
     if (
-      email === "" ||
-      password === "" ||
-      fullName === "" ||
-      documentType === "" ||
-      confirmPassword === "" ||
-      documentNumber === ""
-    ) {
-      console.log("Por favor, completa todos los campos.");
-    } else if (
-      email &&
-      password &&
-      fullName &&
-      documentType &&
-      confirmPassword &&
-      documentNumber &&
-      password !== confirmPassword
-    ) {
-      console.log("Las contraseñas no coinciden.");
+      email === '' ||
+      password === '' ||
+      fullName === '' ||
+      documentType === '' ||
+      confirmPassword === '' ||
+      documentNumber === ''
+    ) {     
+      console.log('Por favor, completa todos los campos.');
+      setAlert({ message: 'Por favor, completa todos los campos.', type: 'error' });
+    } else if 
+    
+    (email &&
+    password  && 
+    fullName &&
+    documentType &&
+    confirmPassword &&
+    documentNumber &&
+
+      password !== confirmPassword) {
+      console.log('Las contraseñas no coinciden.');
+      setAlert({ message: 'Las contraseñas no coinciden.', type: 'error' });
     } else {
-      console.log("fullName:", email, "Contraseña:", password);
-      axios
-        .post(
-          `${import.meta.env.VITE_API_URL}:${
-            import.meta.env.VITE_API_PORT
-          }/api/v1/register`,
-          {
-            name: fullName.split(" ")[0],
-            last_name: fullName.split(" ")[1],
-            dni: documentNumber,
-            member: "02355",
-            email: email,
-            password: password,
-          }
-        )
-        .then((resp) => {
-          console.log("Usuario registrado con exito");
-          // history.push('/');
-          //window.location.href = '/';
-        })
-        .catch((error) => {
-          console.log("error");
-        });
+      console.log('fullName:', fullName, 'documentType:', documentType, 'documentNumber:', documentNumber, 'confirmPassword:', confirmPassword );
+      axios.post('http://ec2-107-22-50-137.compute-1.amazonaws.com:5000/api/v1/register', {
+        "name":fullName.split(' ')[0],
+        "last_name":fullName.split(' ')[1],
+        "dni":documentNumber,
+        "member":"02355",
+        "email": email,
+        "password": password
+      }).then((resp) => {
+        console.log('Usuario registrado con exito');
+        setAlert({ message: 'Usuario registrado con éxito', type: 'success' });
+        navigate('/')
+
+      }).catch((error) => {
+        setAlert({ message: 'Error al registrar usuario', type: 'error' });
+        console.log('error');
+      });
     }
   };
   return (
@@ -171,7 +169,8 @@ function Registro() {
                   onChange={handleconfirmPassword}
                 />
               </div>
-              <div className=" mx-1 border border-zinc-500 px-3 py-4 bg-celeste text-white gap-2 rounded-lg w-full md:w-[25rem] flex items-center  justify-center">
+                {alert && <Alert message={alert.message} type={alert.type} />}
+              <div className=' mx-1 border border-zinc-500 px-3 py-4 bg-celeste text-white gap-2 rounded-lg w-full md:w-[25rem] flex items-center  justify-center '>
                 <button
                   onClick={(e) => {
                     handleRegistration(e);

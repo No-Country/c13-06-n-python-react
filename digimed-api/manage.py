@@ -8,4 +8,4 @@ app = create_app(environment)
 
 if __name__=='__main__':
     Base.metadata.create_all(db.engine)
-    app.run()
+    app.run(host='0.0.0.0')

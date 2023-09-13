@@ -3,7 +3,7 @@ import Image from "../components/Image";
 import hero from "../assets/image_hero.png";
 // import Solicitudes from "./Solicitudes";
 
-export function Login() {
+export function Login({ isLoggedIn }) {
   return (
     <div className="flex flex-col md:flex-row">
       <div className="flex flex-col">
@@ -17,7 +17,7 @@ export function Login() {
         </div>
       </div>
 
-      <LoginForm />
+      <LoginForm setisLoggedIn={isLoggedIn}/>
     </div>
   );
 }
