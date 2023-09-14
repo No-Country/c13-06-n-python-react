@@ -1,29 +1,33 @@
 import { Page, Text, View, Document, Image } from '@react-pdf/renderer';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Logo1 from '../assets/Logo1.png'
 
 
  
 const Pdf =({data})=>{
-    const [name, setName] = useState('')
-    const [dni, setDni] = useState('')
+    const [name, setName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [documentNumber, setDocumentNumber] = useState('');
+    const [email, setEmail] = useState('');
 
-    const data1 = JSON.parse(Cookies.get('data'));
-    console.log(data1.access_token);
-    (axios.get(`${import.meta.env.VITE_API_URL}:${import.meta.env.VITE_API_PORT}/api/v1/patients`,{headers: {Authorization: `Bearer ${data1.access_token}`} } )
-    .then((resp) => {
-      if(resp.status === 200){
-        // console.log(resp.data.find((d)=>d.user_id == data1['user.id']))
-        const usuario = resp.data.find((d)=>d.user_id == data1['user.id'])
-        setName(usuario.name)
-        setDni(usuario.dni)
-      }
-    })
-    .catch((error) => {
-     console.log(error)
-    }));
+    const cookies = JSON.parse(Cookies.get('data'));
+
+    React.useEffect(() => {
+      axios.get(`${import.meta.env.VITE_API_URL}:${import.meta.env.VITE_API_PORT}/api/v1/user/${cookies['user.id']}`,{
+        headers: {Authorization: `Bearer ${cookies.access_token}`} 
+      }).then((resp) => {
+        if(resp.status === 200){
+          setName(resp.data.patient.name)
+          setLastName(resp.data.patient.last_name)
+          setDocumentNumber(resp.data.patient.dni)
+          setEmail(resp.data.user.email)
+        }
+      }).catch((error) => {
+        console.log(error)
+      });
+    }, []);
 
     const currentDate = new Date().toLocaleDateString();
 
@@ -42,11 +46,11 @@ const Pdf =({data})=>{
       </View>
         <View style={{ borderTop: '1px solid black', marginBottom: '20px' }}></View>
       <View style={{ textAlign: 'center', marginTop: '20px', marginBottom: '20px', color: 'darkblue' }}>
-        <Text>Paciente: {name}</Text>
+        <Text>Paciente: {name} {lastName}</Text>
     </View>
     <View style={{ textAlign: 'center', marginTop: '10px', marginBottom: '20px', color: 'darkblue' }}>
-        <Text>N° DNI:{dni}</Text>
-        <Text>correo electronico: {name}@gmail.com</Text>
+        <Text>N° DNI:{documentNumber}</Text>
+        <Text>correo electronico: {email}</Text>
     </View>
       <View style={{ textAlign: 'center', marginBottom: '20px' }}>
         <Text>Cobertura:{data.selectedCobertura}</Text>

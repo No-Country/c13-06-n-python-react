@@ -181,13 +181,11 @@ const Form=({data, updateData,setShow, show, setShowForm})=> {
           </select>
           
         </div>
-      <div className="mx-1 border border-zinc-500 px-3 py-4 bg-celeste text-white gap-2 rounded-lg w-full flex items-center  justify-center">
-        <button
+        <button className="mx-1 border border-zinc-500 px-3 py-4 bg-celeste text-white gap-2 rounded-lg w-full flex items-center  justify-center"
         onClick={(e) => {
            handleConfirmarSolicitud(e);
         }}>Confirmar solicitud
         </button>
-      </div>
       </div>
 
       {/* Botón Confirmar Solicitud */}
