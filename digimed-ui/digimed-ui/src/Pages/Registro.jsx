@@ -111,8 +111,8 @@ function Registro() {
                   onChange={handlefullName}
                 />
               </div>
-              <div className="flex ">
-                <div className=" mx-1 border border-zinc-500  py-4 gap-2 rounded-lg w-full md:w-[12rem] flex items-center ">
+              <div className="flex flex-col gap-6 md:flex-row md:gap-3">
+                <div className=" mx-1 border border-zinc-500 px-3  py-4 gap-2 rounded-lg w-full md:w-[12rem] flex items-center ">
                   <input
                     className="flex-1 p-0 text-zinc-900  placeholder-zinc-600 border-0 bg-transparent"
                     placeholder="Tipo de ID"
@@ -122,7 +122,7 @@ function Registro() {
                     onChange={handledocumentType}
                   />
                 </div>
-                <div className=" mx-1 border border-zinc-500  py-4 gap-2 rounded-lg w-full md:w-[12rem] flex items-center ">
+                <div className=" mx-1 border border-zinc-500 px-3  py-4 gap-2 rounded-lg w-full md:w-[12rem] flex items-center ">
                   <input
                     className="flex-1 p-0 text-zinc-900 placeholder:mr-4  placeholder-zinc-600 border-0 bg-transparent"
                     placeholder="Numero de ID"
