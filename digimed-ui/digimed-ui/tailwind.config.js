@@ -17,11 +17,16 @@ export default {
       'destacar':'#e6f6fe',
       'fondo':'#ffffff',
       'cuerpo-texto':'#3c4959',
-      'test-bg':'green'
+      'test-bg':'green',
+    
        
   
   
       },
+
+      backgroundImage:{
+        'grad':"linear-gradient(180deg, #1376f8 34.56%, #43E7AD, 88.57%)"
+      }
     },
     // extend: {fontFamily:{
     //   libre:["Roboto",...defaultTheme.fontFamily.sans]
