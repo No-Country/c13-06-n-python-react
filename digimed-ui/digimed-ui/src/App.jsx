@@ -13,6 +13,7 @@ import Contacto from './Pages/Contacto';
 
 function App() {
   const [isLoggedIn, setisLoggedIn] = useState(null);
+
   return (
    <div className="App bg-destacar md:bg-white  max-w-max mx-auto">
       <BrowserRouter>
@@ -54,8 +55,8 @@ function App() {
           />
           <Route path="/servicios" 
             element = {
-              <Protected isLoggedIn={isLoggedIn}>
-                <Layout isLoggedIn={isLoggedIn}>
+              <Protected isLoggedIn={true}>
+                <Layout isLoggedIn={true}>
                   <Servicios/>
                 </Layout>
               </Protected>
@@ -63,8 +64,8 @@ function App() {
           />
           <Route path="/solicitudes"
             element = {
-              <Protected isLoggedIn={isLoggedIn}>
-                <Layout isLoggedIn={isLoggedIn}>
+              <Protected isLoggedIn={true}>
+                <Layout isLoggedIn={true}>
                   <Solicitudes/>
                 </Layout>
               </Protected>

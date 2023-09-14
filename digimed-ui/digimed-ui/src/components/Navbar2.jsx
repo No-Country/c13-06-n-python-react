@@ -15,7 +15,8 @@ export function Navbar2({ isLoggedIn = false}) {
     console.log(openMenu ? 'open' : 'close')
   }
 
-    const token = isLoggedIn;
+    // const token = isLoggedIn;
+    const token = true;
 
   return (
     <div className="  flex items-center bg-mobile-bg md:bg-destacar mb-[6rem] h-[5.625rem] w-full md:ml-20 mr-[rem] md:relative justify-between md:justify-end">
@@ -24,13 +25,13 @@ export function Navbar2({ isLoggedIn = false}) {
       </div>
       
       {openMenu ? <div className=" text-lg gap-3 shadow-2xl z-10 absolute right-[5.5rem] top-10  md:p-0 w-[12rem] py-4 md:py-0 rounded-xl flex flex-col   md:mt-0 bg-white md:bg-transparent md:flex md:flex-row md:gap-[2.375rem] md:justify-end  items-center md:mr-36">
-        <a href="/home">Home</a>
-        <a href="/about">Nosotros</a>
-        <a href="/servicios">Servicios</a>
-        <a href="contacto">Contacto</a>
+        <a href="/servicios">SERVICIOS</a>
+        <a href="/about">QUIENES SOMOS</a>
+        <a href="/contacto">CONTACTO</a>
+        <a href="/#">PERFIL</a>
       </div> : <div className=" hidden md:flex gap-[2.375rem] justify-end  items-center mr-36">
         <a href="/home">Home</a>
-        <a href="about">Nosotros</a>
+        <a href="about">Quienes somos</a>
         <a href="/servicios">Servicios</a>
         <a href="contacto">Contacto</a>
       </div> }
