@@ -68,18 +68,18 @@ const Form=({data, updateData,setShow, show, setShowForm})=> {
         }
   };
   return (
-    <div>
-  <p className="text-azul-claro text-center font-roboto font-bold text-2xl mb-16">
+    <div className='pb-16'>
+  <p className="text-azul-claro text-center font-roboto font-bold text-2xl px-4 mb-16">
     Solicitud de receta
   </p>
   <div className="flex  items-center justify-center space-x-8">
-    <div className="w-10/12 h-100 ml-16 mr-16 flex-shrink-0 border rounded-lg bg-destacar shadow-md p-8 flex items-center justify-center mb-16">
+    <div className=" md:w-10/12 md:h-100 md:ml-16 md:mr-16 md:flex-shrink-0 border rounded-lg bg-bg-mobile shadow-md p-8 flex items-center justify-center mb-16">
       <div className="flex flex-col w-full">
        
         <div className='flex flex-col md:flex-row'>
         <div className="flex mb-4">
           <select
-            className="mx-1 px-3 py-4 gap-2  mr-14 w-[25rem]"
+            className="mx-1 px-3 py-4 gap-2  md:mr-14 w-full md:w-[25rem]"
             value={data.selectedCobertura}
             onChange={handleCoberturaChange}
           >
@@ -92,7 +92,7 @@ const Form=({data, updateData,setShow, show, setShowForm})=> {
         
         <div className="flex items-center mb-4">
           <select
-            className="mx-1 px-3 py-4 gap-2 mr-14 w-[25rem]"
+            className="mx-1 px-3 py-4 gap-2 md:mr-14 w-full md:w-[25rem]"
             value={data.selectedPlan}
             onChange={handlePlanChange}
             >
@@ -106,7 +106,7 @@ const Form=({data, updateData,setShow, show, setShowForm})=> {
        
         <div className="flex items-center mb-4">
         <input
-          className="mx-1 px-3 py-4 mr-14 w-[25rem]"
+          className="mx-1 px-3 py-4 md:mr-14 w-full md:w-[25rem]"
           placeholder="N° Afiliado"
           type="number"
           name="afiliado"

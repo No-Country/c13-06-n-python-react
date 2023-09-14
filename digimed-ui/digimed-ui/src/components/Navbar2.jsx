@@ -6,7 +6,7 @@ import { Avatar } from "./Avatar";
 
 
 
-export function Navbar2({ isLoggedIn = false}) {
+export function Navbar2({ isLoggedIn = true}) {
   const [openMenu , setOpenMenu] = useState(false)
 
 
@@ -19,17 +19,17 @@ export function Navbar2({ isLoggedIn = false}) {
     const token = true;
 
   return (
-    <div className="  flex items-center bg-mobile-bg md:bg-destacar mb-[6rem] h-[5.625rem] w-full md:ml-20 mr-[rem] md:relative justify-between md:justify-end">
+    <div className= {isLoggedIn ? "flex items-center pl-4 bg-blue-800 md:bg-destacar mb-[6rem] h-[5.625rem] max-w-6xl md:ml-20 mr-[rem] md:relative justify-between md:justify-end":"flex items-center bg-mobile-bg md:bg-destacar mb-[6rem] h-[5.625rem] w-full md:ml-20 ] md:relative justify-between md:justify-end"}>
       <div className=" w-[6.2rem] h-[6.2rem] mt-10 md:w-[10.3rem] md:h-[10.3rem] md:absolute lg:-left-20 lg:-top-4 md:-mt-1 md:ml-10">
         <img src={logoSVG} alt="" className="" />
       </div>
       
-      {openMenu ? <div className=" text-lg gap-3 shadow-2xl z-10 absolute right-[5.5rem] top-10  md:p-0 w-[12rem] py-4 md:py-0 rounded-xl flex flex-col   md:mt-0 bg-white md:bg-transparent md:flex md:flex-row md:gap-[2.375rem] md:justify-end  items-center md:mr-36">
+      {openMenu ? <div className=" text-lg gap-3 shadow-2xl z-10 justify-start  absolute right-[5.5rem] top-10  md:p-0 w-[10rem] py-4 md:py-0 rounded-xl flex flex-col   md:mt-0 bg-white md:bg-transparent md:flex md:flex-row md:gap-[2.375rem] md:justify-end  pl-4 md:mr-36">
         <a href="/servicios">SERVICIOS</a>
         <a href="/about">QUIENES SOMOS</a>
         <a href="/contacto">CONTACTO</a>
         <a href="/#">PERFIL</a>
-      </div> : <div className=" hidden md:flex gap-[2.375rem] justify-end  items-center mr-36">
+      </div> : <div className=" hidden md:flex gap-[2.375rem] justify-end  items-center mr-20">
         <a href="/home">Home</a>
         <a href="about">Quienes somos</a>
         <a href="/servicios">Servicios</a>

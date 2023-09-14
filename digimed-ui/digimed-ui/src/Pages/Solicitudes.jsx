@@ -24,7 +24,7 @@ function Solicitudes() {
     };
 
   return (
-    <div>
+    <div className='px-4'>
       
     { show &&
 

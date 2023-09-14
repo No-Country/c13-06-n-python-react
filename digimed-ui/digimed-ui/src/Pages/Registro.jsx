@@ -86,7 +86,7 @@ function Registro() {
     }
   };
   return (
-    <div className="flex flex-col md:flex-row ">
+    <div className="flex px-4 flex-col md:flex-row ">
       <div className=" flex flex-col ">
         <div className="  hidden md:block">
           <Image />
