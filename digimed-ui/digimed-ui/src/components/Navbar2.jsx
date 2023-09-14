@@ -6,7 +6,7 @@ import { Avatar } from "./Avatar";
 
 
 
-export function Navbar2({ isLoggedIn = true}) {
+export function Navbar2({ isLoggedIn = false}) {
   const [openMenu , setOpenMenu] = useState(false)
 
 
@@ -15,8 +15,8 @@ export function Navbar2({ isLoggedIn = true}) {
     console.log(openMenu ? 'open' : 'close')
   }
 
-    // const token = isLoggedIn;
-    const token = true;
+    const token = isLoggedIn;
+    
 
   return (
     <div className= {isLoggedIn ? "flex items-center pl-4 bg-blue-800 md:bg-destacar mb-[6rem] h-[5.625rem] max-w-6xl md:ml-20 mr-[rem] md:relative justify-between md:justify-end":"flex items-center bg-mobile-bg md:bg-destacar mb-[6rem] h-[5.625rem] w-full md:ml-20 ] md:relative justify-between md:justify-end"}>
