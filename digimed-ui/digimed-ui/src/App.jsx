@@ -14,8 +14,9 @@ import Contacto from './Pages/Contacto';
 
 function App() {
   const [isLoggedIn, setisLoggedIn] = useState(null);
+
   return (
-   <div className="App bg-destacar md:bg-white  max-w-max mx-auto">
+   <div className={isLoggedIn ? "App bg-white  max-w-fit mx-auto h-full" : "App bg-white md:bg-white   mx-auto h-full"}>
       <BrowserRouter>
         <Routes>
           <Route path="/"

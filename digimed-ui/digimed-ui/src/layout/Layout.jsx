@@ -8,8 +8,8 @@ import { Navbar2 } from "../components/Navbar2";
 export function Layout({ children, isLoggedIn, setisLoggedIn }) {
   return (
     <>
-      <div className="w-full  md:w-[80rem] mx-auto px-4 md:px-20 pb-4 md:pt-10 flex flex-col  justify-between">
-        <div className="">
+      <div className="w-full flex flex-col  mx-auto  pb-4  justify-between md:w-[80rem] md:px-20  md:pt-10 ">
+        <div className=" w-screen md:w-[80rem] ">
           <Navbar2 isLoggedIn={isLoggedIn} setisLoggedIn={setisLoggedIn}/>
         </div>
         <div className="lg:max-w-7xl flex justify-center">{children}</div>

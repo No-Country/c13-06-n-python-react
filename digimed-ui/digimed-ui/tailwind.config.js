@@ -18,6 +18,7 @@ export default {
       'fondo':'#ffffff',
       'cuerpo-texto':'#3c4959',
       'test-bg':'green',
+      'bg-mobile':'#A0DFFF',
     
        
   
