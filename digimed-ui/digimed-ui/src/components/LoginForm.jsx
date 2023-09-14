@@ -60,7 +60,7 @@ export function LoginForm({ setisLoggedIn }) {
         })
         .then((resp) => {
           if(resp.status === 200){
-            Cookies.set('data', resp.data, { expires: 3 });
+            Cookies.set('data', JSON.stringify(resp.data), { expires: 3 });
             setisLoggedIn(true);
             navigate('/servicios');
           }
