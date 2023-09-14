@@ -2,17 +2,21 @@
 import logoSVG from "../assets/logo.svg";
 import menuLogo from "../assets/iconamoon_menu-burger-horizontal-bold.svg"
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Avatar } from "./Avatar";
 
 
 
-export function Navbar2({ isLoggedIn = false}) {
+export function Navbar2({ isLoggedIn = false, setisLoggedIn}) {
   const [openMenu , setOpenMenu] = useState(false)
 
+  const cerrarSesion = (e) => {
+		Cookies.remove('data');+
+    setisLoggedIn(false);
+	};
 
   const toggleMenu = () => {
     setOpenMenu(!openMenu)
-    console.log(openMenu ? 'open' : 'close')
   }
 
     const token = isLoggedIn;
@@ -20,19 +24,21 @@ export function Navbar2({ isLoggedIn = false}) {
   return (
     <div className="  flex items-center bg-mobile-bg md:bg-destacar mb-[6rem] h-[5.625rem] w-full md:ml-20 mr-[rem] md:relative justify-between md:justify-end">
       <div className=" w-[6.2rem] h-[6.2rem] mt-10 md:w-[10.3rem] md:h-[10.3rem] md:absolute lg:-left-20 lg:-top-4 md:-mt-1 md:ml-10">
-        <img src={logoSVG} alt="" className="" />
+        <Link to="/">
+          <img src={logoSVG} alt="" className="" />
+        </Link>
       </div>
       
       {openMenu ? <div className=" text-lg gap-3 shadow-2xl z-10 absolute right-[5.5rem] top-10  md:p-0 w-[12rem] py-4 md:py-0 rounded-xl flex flex-col   md:mt-0 bg-white md:bg-transparent md:flex md:flex-row md:gap-[2.375rem] md:justify-end  items-center md:mr-36">
-        <a href="/home">Home</a>
-        <a href="/about">Nosotros</a>
-        <a href="/servicios">Servicios</a>
-        <a href="contacto">Contacto</a>
+        <Link to="/home">Home</Link>
+        <Link to="/about">Nosotros</Link>
+        <Link to="/servicios">Servicios</Link>
+        <Link to="/contacto">Contacto</Link>
       </div> : <div className=" hidden md:flex gap-[2.375rem] justify-end  items-center mr-36">
-        <a href="/home">Home</a>
-        <a href="about">Nosotros</a>
-        <a href="/servicios">Servicios</a>
-        <a href="contacto">Contacto</a>
+        <Link to="/home">Home</Link>
+        <Link to="/about">Nosotros</Link>
+        <Link to="/servicios">Servicios</Link>
+        <Link to="/contacto">Contacto</Link>
       </div> }
       
       <div className="px-5 md:hidden" >
@@ -48,7 +54,7 @@ export function Navbar2({ isLoggedIn = false}) {
      
       { token ? (
             <div className=' hidden md:flex mx-2'>
-              <Avatar  />
+              <Avatar closeSession={cerrarSesion} />
             </div>
           ): null}
         

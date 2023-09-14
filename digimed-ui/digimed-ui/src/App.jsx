@@ -56,7 +56,7 @@ function App() {
           <Route path="/servicios" 
             element = {
               <Protected isLoggedIn={isLoggedIn}>
-                <Layout isLoggedIn={isLoggedIn}>
+                <Layout isLoggedIn={isLoggedIn} setisLoggedIn={setisLoggedIn}>
                   <Servicios/>
                 </Layout>
               </Protected>
@@ -65,7 +65,7 @@ function App() {
           <Route path="/solicitudes"
             element = {
               <Protected isLoggedIn={isLoggedIn}>
-                <Layout isLoggedIn={isLoggedIn}>
+                <Layout isLoggedIn={isLoggedIn} setisLoggedIn={setisLoggedIn}>
                   <Solicitudes/>
                 </Layout>
               </Protected>
@@ -74,7 +74,7 @@ function App() {
           <Route path="/perfil"
             element = {
               <Protected isLoggedIn={isLoggedIn}>
-                <Layout isLoggedIn={isLoggedIn}>
+                <Layout isLoggedIn={isLoggedIn} setisLoggedIn={setisLoggedIn}>
                   <Profile/>
                 </Layout>
               </Protected>

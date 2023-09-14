@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { PDFViewer } from '@react-pdf/renderer';
 import Form from '../components/Form';
-import Pdf from '../components/pdf';   
+import Pdf from '../components/Pdf';   
 
 function Solicitudes() {
   const [show, setShow] = useState(false)

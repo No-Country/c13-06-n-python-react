@@ -1,18 +1,82 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import avatar from '../assets/avatar.svg'
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
-    const hiddenFileInput = useRef(null);
+  const [patientId, setPatientId] = useState('');
+  const [name, setName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [documentNumber, setDocumentNumber] = useState('');
+  const [email, setEmail] = useState('');
+  const hiddenFileInput = useRef(null);
+  const cookies = JSON.parse(Cookies.get('data'));
+  const Navigate = useNavigate();
 
-    const handleClick = event => {
-      hiddenFileInput.current.click();
-    };
 
-    const handleChange = event => {
-      const fileUploaded = event.target.files[0];
-      handleFile(fileUploaded);
-    };
-  
+  const handleName = (e) => {
+    setName(e.target.value);
+  };
+
+  const handlelastName = (e) => {
+    setLastName(e.target.value);
+  };
+
+  const handledocumentNumber = (e) => {
+    setDocumentNumber(e.target.value);
+  };
+
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleClick = event => {
+    hiddenFileInput.current.click();
+  };
+
+  const handleChange = event => {
+    const fileUploaded = event.target.files[0];
+    handleFile(fileUploaded);
+  };
+
+  const handleUpdateProfile = (e) => {
+    e.preventDefault();
+    axios.put(`${import.meta.env.VITE_API_URL}:${import.meta.env.VITE_API_PORT}/api/v1/patients/${patientId}`, {
+      name: name,
+      last_name: lastName,
+      dni: documentNumber
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${cookies.access_token}`
+      }
+    }).then((resp) => {
+      console.log(resp.status)
+      if(resp.status === 200){
+        Navigate('/servicios');
+      }
+    }).catch((error) => {
+      console.log(error)
+    });
+  }
+ 
+  React.useEffect(() => {
+    axios.get(`${import.meta.env.VITE_API_URL}:${import.meta.env.VITE_API_PORT}/api/v1/user/${cookies['user.id']}`,{
+      headers: {Authorization: `Bearer ${cookies.access_token}`} 
+    }).then((resp) => {
+      if(resp.status === 200){
+        setPatientId(resp.data.patient.id)
+        setName(resp.data.patient.name)
+        setLastName(resp.data.patient.last_name)
+        setDocumentNumber(resp.data.patient.dni)
+        setEmail(resp.data.user.email)
+      }
+    }).catch((error) => {
+      console.log(error)
+    });
+  }, []);
+
   return (
     <div className='relative'>
       <p className="text-azul-claro text-center font-roboto font-bold text-2xl mb-16">Perfil</p>
@@ -36,11 +100,15 @@ const Profile = () => {
                 className="mx-1 px-3 py-4 gap-2 w-[25rem]"
                 type="text"
                 placeholder="Nombre"
+                value={name}
+                onChange={handleName}
               />
               <input
                 className="mx-1 px-3 py-4 ml-4 gap-2 w-[25rem]"
                 type="text"
                 placeholder="Apellido"
+                value={lastName}
+                onChange={handlelastName}
               />
             </div>
             <div className="flex items-center m-4">
@@ -48,14 +116,19 @@ const Profile = () => {
                 className="mx-1 px-3 py-4 gap-2 w-[25rem]"
                 type="text"
                 placeholder="DNI"
+                value={documentNumber}
+                onChange={handledocumentNumber}
               />
               <input
                 className="mx-1 px-3 py-4 ml-4 gap-2 w-[25rem]"
                 type="text"
                 placeholder="Correo"
+                value={email}
+                onChange={handleEmail}
+                disabled
               />  
             </div>
-            <button className="mx-1 border border-zinc-500 px-3 py-4 bg-celeste text-white gap-2 rounded-lg w-full flex items-center  justify-center">Guardar Cambios</button>
+            <button className="mx-1 border border-zinc-500 px-3 py-4 bg-celeste text-white gap-2 rounded-lg w-full flex items-center  justify-center" onClick={handleUpdateProfile}>Guardar Cambios</button>
           </div>
         </div>
       </div>

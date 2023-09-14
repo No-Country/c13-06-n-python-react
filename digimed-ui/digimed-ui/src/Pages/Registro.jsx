@@ -9,7 +9,8 @@ function Registro() {
   const navigate = useNavigate();
   const [alert, setAlert] = useState(null);
 
-  const [fullName, setFullName] = useState('');
+  const [name, setName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [documentType, setDocumentType] = useState('');
   const [documentNumber, setDocumentNumber] = useState('');
   const [email, setEmail] = useState('');
@@ -17,8 +18,12 @@ function Registro() {
   const [confirmPassword, setconfirmPassword] = useState('');
 
  
-  const handlefullName = (e) => {
-    setFullName(e.target.value);
+  const handleName = (e) => {
+    setName(e.target.value);
+  };
+
+  const handlelastName = (e) => {
+    setLastName(e.target.value);
   };
 
   const handledocumentType = (e) => {
@@ -39,14 +44,13 @@ function Registro() {
     setPassword(e.target.value);
   };
 
-  console.log('fullName:', fullName, 'password:', password, 'email:', 
-      email, 'documentType:', documentType, 'documentNumber:', documentNumber, 'confirmPassword:', confirmPassword );
   const handleRegistration = (e) => {
     e.preventDefault();
     if (
       email === '' ||
       password === '' ||
-      fullName === '' ||
+      name === '' ||
+      lastName === '' ||
       documentType === '' ||
       confirmPassword === '' ||
       documentNumber === ''
@@ -57,7 +61,8 @@ function Registro() {
     
     (email &&
     password  && 
-    fullName &&
+    name &&
+    lastName &&
     documentType &&
     confirmPassword &&
     documentNumber &&
@@ -66,10 +71,9 @@ function Registro() {
       console.log('Las contraseñas no coinciden.');
       setAlert({ message: 'Las contraseñas no coinciden.', type: 'error' });
     } else {
-      console.log('fullName:', fullName, 'documentType:', documentType, 'documentNumber:', documentNumber, 'confirmPassword:', confirmPassword );
-      axios.post('http://ec2-107-22-50-137.compute-1.amazonaws.com:5000/api/v1/register', {
-        "name":fullName.split(' ')[0],
-        "last_name":fullName.split(' ')[1],
+      axios.post(`${import.meta.env.VITE_API_URL}:${import.meta.env.VITE_API_PORT}/api/v1/register`, {
+        "name":name,
+        "last_name":lastName,
         "dni":documentNumber,
         "member":"02355",
         "email": email,
@@ -104,11 +108,21 @@ function Registro() {
               <div className=" mx-auto border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-full md:w-[25rem] flex items-center ">
                 <input
                   className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
-                  placeholder="Nombre y Apellido"
+                  placeholder="Nombre"
                   type="text"
-                  name="fullName"
-                  value={fullName}
-                  onChange={handlefullName}
+                  name="name"
+                  value={name}
+                  onChange={handleName}
+                />
+              </div>
+              <div className=" mx-auto border border-zinc-500 px-3 py-4 gap-2 rounded-lg w-full md:w-[25rem] flex items-center ">
+                <input
+                  className="flex-1 p-0 text-zinc-900 placeholder-zinc-600 border-0 bg-transparent"
+                  placeholder="Apellido"
+                  type="text"
+                  name="lastName"
+                  value={lastName}
+                  onChange={handlelastName}
                 />
               </div>
               <div className="flex ">
@@ -164,15 +178,13 @@ function Registro() {
                 />
               </div>
                 {alert && <Alert message={alert.message} type={alert.type} />}
-              <div className=' mx-1 border border-zinc-500 px-3 py-4 bg-celeste text-white gap-2 rounded-lg w-full md:w-[25rem] flex items-center  justify-center '>
-                <button
-                  onClick={(e) => {
-                    handleRegistration(e);
-                  }}
-                >
-                  Confirmar Registro
-                </button>
-              </div>
+              <button className=' mx-1 border border-zinc-500 px-3 py-4 bg-celeste text-white gap-2 rounded-lg w-full md:w-[25rem] flex items-center  justify-center '
+                onClick={(e) => {
+                  handleRegistration(e);
+                }}
+              >
+                Confirmar Registro
+              </button>
               <div className="mt-10 md:mt-1 md:text-2xl mb-16 flex flex-row gap-1 justify-center">
                 volver al{" "}
                 <Link className="text-celeste underline" to="/">

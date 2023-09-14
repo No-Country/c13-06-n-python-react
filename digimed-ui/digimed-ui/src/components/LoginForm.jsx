@@ -1,6 +1,6 @@
 // import Alert from '@mui/material/Alert';
 import Registro from '../Pages/Registro';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Notification } from './Notification';
 import axios from 'axios';
@@ -46,11 +46,7 @@ export function LoginForm({ setisLoggedIn }) {
       setShowAlertEmail(false);
     }, 5000);
   };
-
-  if(Cookies.get('data')){
-    Cookies.remove('data');
-  }
-
+  
   const enter = (e) => {
     e.preventDefault()
     if (email === '' || password === '') {
