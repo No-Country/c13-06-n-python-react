@@ -79,12 +79,11 @@ function Registro() {
         "email": email,
         "password": password
       }).then((resp) => {
-        console.log('Usuario registrado con exito');
-        setAlert({ message: 'Usuario registrado con éxito', type: 'success' });
-        navigate('/')
-
+        if(resp.status === 200){
+          setAlert({ message: 'Usuario registrado con éxito', type: 'success' });
+          navigate('/')
+        }
       }).catch((error) => {
-        setAlert({ message: 'Error al registrar usuario', type: 'error' });
         console.log('error');
       });
     }
