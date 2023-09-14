@@ -17,7 +17,7 @@ function About() {
         gridTemplateColumns: "1fr 1fr 1fr", 
         gap: "20px", 
         maxWidth: "100%",
-        width: "100%",
+        width: "1200px",
         background: '#A0DFFF',
         border: "1px solid #ccc",
         marginBottom: '80px'
@@ -27,7 +27,7 @@ function About() {
           <img
             src={Elvis}
             alt="Digimed"
-            style={{ width: "118px", height: "118px", margin: "10px" }}
+            style={{ width: "118px", height: "118px", marginR: "10px" }}
           />
           <div>
             <p style={{ fontWeight: "bold" }}>Elvis Segovia</p>
@@ -39,7 +39,7 @@ function About() {
           <img
             src={Antoni}
             alt="Digimed"
-            style={{ width: "118px", height: "118px", margin: "10px" }}
+            style={{ width: "118px", height: "118px", marginRight: "10px" }}
           />
           <div>
             <p style={{ fontWeight: "bold" }}>Antoni Pérez</p>

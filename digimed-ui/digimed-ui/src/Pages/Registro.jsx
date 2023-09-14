@@ -91,13 +91,7 @@ function Registro() {
         <div className="  hidden md:block">
           <Image />
         </div>
-        <div className="mb-10  text-center hidden md:block">
-
-          <p className="font-bold text-2xl text-azul-oscuro mb-[2.8rem]">
-            Aprovechamos la tecnología para hacer la vida más fácil.
-          </p>
-        </div>
-        
+              
           
       </div>
         <div className="flex justify-center ">
