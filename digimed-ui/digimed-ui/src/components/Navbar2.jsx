@@ -37,9 +37,9 @@ export function Navbar2({ isLoggedIn = false, setisLoggedIn}) {
         <Link to="/contacto">Contacto</Link>
       </div> : <div className=" hidden md:flex gap-[2.375rem] justify-end  items-center mr-20">
         <Link to="/home">Home</Link>
-        <Link to="about">Quienes somos</Link>
+        <Link to="/about">Quienes somos</Link>
         <Link to="/servicios">Servicios</Link>
-        <Link to="contacto">Contacto</Link>
+        <Link to="/contacto">Contacto</Link>
       </div> }
       
       <div className="px-5 md:hidden" >
