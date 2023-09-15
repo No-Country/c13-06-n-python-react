@@ -10,7 +10,7 @@ users_schema = UserSchema(many=True)
 
 class PatientSchema(Schema):
     class Meta:
-        fields = ('id', 'name', 'last_name','dni', 'member', 'user_id')
+        fields = ('id', 'name', 'last_name','dni', 'member', 'profile_img', 'user_id')
 
 class ParamsPatientSchema(Schema):
     
@@ -20,6 +20,7 @@ class ParamsPatientSchema(Schema):
     last_name = fields.Str(required=True, validate=Length(max=100))
     dni = fields.Str(required=True, validate=Length(max=250))
     member = fields.Str(required=True, validate=Length(max=100))
+    profile_img = fields.Str(required=False)
 
 patient_schema = PatientSchema()
 patients_schema = PatientSchema(many=True)

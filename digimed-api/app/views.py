@@ -135,6 +135,7 @@ def update_patient(id):
         patient.name = json['name']
         patient.last_name = json['last_name']
         patient.dni = json['dni']
+        patient.profile_img = json['profile_img']
         session.commit()
         
         return response(patient_schema.dump(patient))

@@ -5,12 +5,12 @@ import { Navbar2 } from "../components/Navbar2";
 // import Solicitudes from "../Pages/Solicitudes";
 // import Registro from "../Pages/Registro";
 
-export function Layout({ children, isLoggedIn, setisLoggedIn }) {
+export function Layout({ children, isLoggedIn, setisLoggedIn, profileImg, setProfileImg }) {
   return (
     <>
       <div className="w-full flex flex-col  mx-auto  pb-4  justify-between md:w-[80rem] md:px-20  md:pt-10 ">
         <div className=" w-screen md:w-[80rem] ">
-          <Navbar2 isLoggedIn={isLoggedIn} setisLoggedIn={setisLoggedIn}/>
+          <Navbar2 isLoggedIn={isLoggedIn} setisLoggedIn={setisLoggedIn} profileImg={profileImg} setProfileImg={setProfileImg}/>
         </div>
         <div className="lg:max-w-7xl flex justify-center">{children}</div>
         <div className="hidden md:block">

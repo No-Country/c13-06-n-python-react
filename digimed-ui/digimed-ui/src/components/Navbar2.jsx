@@ -1,19 +1,33 @@
-
 import logoSVG from "../assets/logo.svg";
 import menuLogo from "../assets/iconamoon_menu-burger-horizontal-bold.svg"
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Avatar } from "./Avatar";
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 
-
-export function Navbar2({ isLoggedIn = false, setisLoggedIn}) {
+export function Navbar2({ isLoggedIn = false, setisLoggedIn, profileImg, setProfileImg}) {
   const [openMenu , setOpenMenu] = useState(false)
+  const cookies = JSON.parse(Cookies.get('data'));
 
   const cerrarSesion = (e) => {
-		Cookies.remove('data');+
+		Cookies.remove('data');
     setisLoggedIn(false);
 	};
+
+  React.useEffect(() => {
+    axios.get(`${import.meta.env.VITE_API_URL}:${import.meta.env.VITE_API_PORT}/api/v1/user/${cookies['user.id']}`,{
+      headers: {Authorization: `Bearer ${cookies.access_token}`} 
+    }).then((resp) => {
+      if(resp.status === 200){
+        setProfileImg(resp.data.patient.profile_img)
+      }
+    }).catch((error) => {
+      console.log(error)
+    });
+  }, []);
+  
 
   const toggleMenu = () => {
     setOpenMenu(!openMenu)
@@ -55,7 +69,7 @@ export function Navbar2({ isLoggedIn = false, setisLoggedIn}) {
      
       { token ? (
             <div className=' hidden md:flex mx-2'>
-              <Avatar closeSession={cerrarSesion} />
+              <Avatar closeSession={cerrarSesion} profileImg={profileImg}/>
             </div>
           ): null}
         

@@ -14,6 +14,7 @@ import Contacto from './Pages/Contacto';
 
 function App() {
   const [isLoggedIn, setisLoggedIn] = useState(null);
+  const [profileImg, setProfileImg] = useState('');
 
   return (
    <div className={isLoggedIn ? "App bg-white  max-w-fit mx-auto h-full" : "App bg-white md:bg-white   mx-auto h-full"}>
@@ -57,7 +58,7 @@ function App() {
           <Route path="/servicios" 
             element = {
               <Protected isLoggedIn={isLoggedIn}>
-                <Layout isLoggedIn={isLoggedIn} setisLoggedIn={setisLoggedIn}>
+                <Layout isLoggedIn={isLoggedIn} setisLoggedIn={setisLoggedIn} profileImg={profileImg} setProfileImg={setProfileImg}>
                   <Servicios/>
                 </Layout>
               </Protected>
@@ -66,7 +67,7 @@ function App() {
           <Route path="/solicitudes"
             element = {
               <Protected isLoggedIn={isLoggedIn}>
-                <Layout isLoggedIn={isLoggedIn} setisLoggedIn={setisLoggedIn}>
+                <Layout isLoggedIn={isLoggedIn} setisLoggedIn={setisLoggedIn} profileImg={profileImg} setProfileImg={setProfileImg}>
                   <Solicitudes/>
                 </Layout>
               </Protected>
@@ -75,8 +76,8 @@ function App() {
           <Route path="/perfil"
             element = {
               <Protected isLoggedIn={isLoggedIn}>
-                <Layout isLoggedIn={isLoggedIn} setisLoggedIn={setisLoggedIn}>
-                  <Profile/>
+                <Layout isLoggedIn={isLoggedIn} setisLoggedIn={setisLoggedIn} profileImg={profileImg} setProfileImg={setProfileImg}>
+                  <Profile profileImg={profileImg} setProfileImg={setProfileImg}/>
                 </Layout>
               </Protected>
             }

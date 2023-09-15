@@ -20,8 +20,6 @@ export function LoginForm({ setisLoggedIn }) {
   const [showRegistro, setShowRegistro] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(true);
   
-  setisLoggedIn(true);// comemtar
-
   const handleemail = (e) => {
     setEmail(e.target.value);
   };
@@ -46,7 +44,7 @@ export function LoginForm({ setisLoggedIn }) {
       setShowAlertEmail(false);
     }, 5000);
   };
-  
+
   const enter = (e) => {
     e.preventDefault()
     if (email === '' || password === '') {

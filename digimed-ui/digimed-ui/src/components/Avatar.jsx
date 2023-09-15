@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import avatar from '../assets/avatar.svg'
 
 export function Avatar(props){
 	const [showMenu, setShowMenu] = React.useState(false);
@@ -12,9 +11,7 @@ export function Avatar(props){
 		<React.Fragment>
 			<div className="relative inline-block text-left">
 				<div onClick={handleShowMenu}>
-					<div className="p-4 shadow-sm bg-white w-14 h-14 rounded-full">
-						<img src={avatar} alt="" className="w-full h-full" />
-					</div>
+					<img src={props.profileImg} alt="" className="w-14 h-14 rounded-full bg-blue-500" />
 				</div>
 				<div onMouseLeave={handleShowMenu} className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1" style={{ display: showMenu ? 'block':'none'}}>
 					<div className="py-1" role="none">

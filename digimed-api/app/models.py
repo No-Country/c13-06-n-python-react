@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey, Text
 
 # Clase base para crear modelos
 class Base(DeclarativeBase):
@@ -30,8 +30,9 @@ class Patient(Base):
     last_name = Column(String(100), nullable=False)
     dni = Column(String(250), nullable=False)
     member = Column(String(100), nullable=False)
+    profile_img = Column(Text, nullable=True)
     user_id = Column(Integer(), ForeignKey('users.id')) 
-    
+
     #Override del metodo __repr__ para mostrar los datos del paciente
     def __repr__(self):
         return f"<Patient(id='{self.id}', name='{self.name}, last_name={self.last_name}, dni={self.dni}, menber={self.member}, user_id={self.user_id}')>"
