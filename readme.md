@@ -3,6 +3,3 @@
 
 
 https://github.com/No-Country/c13-06-n-python-react/assets/142636393/705c7354-bf34-46f9-a156-b00eb796594e
-
-
-

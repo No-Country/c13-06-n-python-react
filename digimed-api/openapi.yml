@@ -1,0 +1,151 @@
+openapi: 3.0.0
+info:
+  title: DIGIMED
+  version: 1.0.0
+servers:
+  - url: http://host/api/v1
+paths:
+  /patients/{id}:
+    get:
+      summary: getPacientsById
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer ***
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+  /patients:
+    get:
+      summary: getPacients
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer ***
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patients'
+  /register:
+    post:
+      summary: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Jose
+                last_name: Benitez
+                dni: '25327555'
+                member: '02355'
+                email: jose@mail.com
+                password: '123456'
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/success'
+
+  /login:
+    post:
+      summary: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: jose@mail.com
+                password: '123456'
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/success'
+
+components:
+  schemas:
+    Patients:
+      type: array
+      items:
+        type: object
+        properties:
+          dni: 
+            type: string
+            example: '25327555'
+          id: 
+            type: integer
+            example: 1
+          last_name: 
+            type: string
+            example: Benitez
+          member: 
+            type: string
+            example: '02355'
+          name: 
+            type: string
+            example: Jose
+          user_id: 
+            type: integer
+            example: 1
+    success:
+      type: object
+      properties:
+        messages:
+          type: string
+          example: Success
+    Patient:
+      type: object
+      properties:
+        dni: 
+          type: string
+          example: '25327555'
+        id: 
+          type: integer
+          example: 1
+        last_name: 
+          type: string
+          example: Benitez
+        member: 
+          type: string
+          example: '02355'
+        name: 
+          type: string
+          example: Jose
+        user_id: 
+          type: integer
+          example: 1
+    
