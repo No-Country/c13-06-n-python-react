@@ -16,9 +16,11 @@ export function LoginForm({ setisLoggedIn }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showAlert, setShowAlert] = useState(false);
-  const [ShowAlertEmail, setShowAlertEmail] = useState(false);
+  const [statusCode, setStatusCode] = useState(200);
   const [showRegistro, setShowRegistro] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(true);
+  const [message, setMessage] = useState('');
+  const [color, setColor] = useState('');
   
   const handleemail = (e) => {
     setEmail(e.target.value);
@@ -60,12 +62,17 @@ export function LoginForm({ setisLoggedIn }) {
           if(resp.status === 200){
             Cookies.set('data', JSON.stringify(resp.data), { expires: 3 });
             setisLoggedIn(true);
-            
             navigate('/servicios');
           }
-        })
-        .catch((error) => {
-          setShowAlertEmail(true);
+        }).catch((error) => {
+          setStatusCode(error.response.status);
+          if(error.response.status === 401){
+            setMessage('Usuario o contraseña invalidos');
+            setColor('red');
+          }else{
+            setMessage('Error usuario no encontrado');
+            setColor('blue');
+          }
         });
     }
   };
@@ -120,11 +127,7 @@ export function LoginForm({ setisLoggedIn }) {
             <button onClick={enter} className={(email && password) ? ' mx-auto md:mx-1 border border-zinc-500 px-3 py-4 bg-celeste text-white gap-2 rounded-lg w-full md:w-[25rem] flex items-center justify-center' : 'mx-auto md:mx-1 border border-zinc-500 px-3 py-4 bg-blue-500 text-white font-bold rounded-lg w-full md:w-[25rem] flex items-center justify-center opacity-50 cursor-not-allowed'} disabled={(email && password) ? false : true}>
               Ingresar
             </button>
-            {ShowAlertEmail ? <Notification title="Error" message="Usuario o contrasenha invalidos"/> : null}
-              
-
-
-
+            {statusCode !== 200 ? <Notification title="Error" message={message} color={color} /> : null}
             
             <div className='mt-10 md:mt-1 md:text-2xl  flex flex-row gap-1 justify-center'>
                 ¿No tiene cuenta? 

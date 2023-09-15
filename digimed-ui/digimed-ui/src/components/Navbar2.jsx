@@ -9,25 +9,26 @@ import axios from 'axios';
 
 export function Navbar2({ isLoggedIn = false, setisLoggedIn, profileImg, setProfileImg}) {
   const [openMenu , setOpenMenu] = useState(false)
-  const cookies = JSON.parse(Cookies.get('data'));
 
   const cerrarSesion = (e) => {
 		Cookies.remove('data');
     setisLoggedIn(false);
 	};
-
-  React.useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_URL}:${import.meta.env.VITE_API_PORT}/api/v1/user/${cookies['user.id']}`,{
-      headers: {Authorization: `Bearer ${cookies.access_token}`} 
-    }).then((resp) => {
-      if(resp.status === 200){
-        setProfileImg(resp.data.patient.profile_img)
-      }
-    }).catch((error) => {
-      console.log(error)
-    });
-  }, []);
   
+  if(isLoggedIn){
+    const cookies = JSON.parse(Cookies.get('data'));
+    React.useEffect(() => {
+      axios.get(`${import.meta.env.VITE_API_URL}:${import.meta.env.VITE_API_PORT}/api/v1/user/${cookies['user.id']}`,{
+        headers: {Authorization: `Bearer ${cookies.access_token}`} 
+      }).then((resp) => {
+        if(resp.status === 200){
+          setProfileImg(resp.data.patient.profile_img)
+        }
+      }).catch((error) => {
+        console.log(error)
+      });
+    }, []);
+  }  
 
   const toggleMenu = () => {
     setOpenMenu(!openMenu)

@@ -53,8 +53,10 @@ def login():
         user = session.query(User).filter(User.email == email).first()
         
         if user is None:
+            error=404
             message = 'El correo no se encuentra registrado'
         elif not check_password_hash(user.password, password):
+            error = 401
             message = 'La contraseña es incorrecta'
         
         if message is None:
@@ -69,7 +71,7 @@ def login():
         else:
             return jsonify({
             'messages': message
-            }),401
+            }),error
     except Exception as e:
         return bad_request(e)
     finally:
